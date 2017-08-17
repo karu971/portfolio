@@ -8,7 +8,7 @@
                 <div *ngIf="typeCompetence.id == competence.type" >
                     <div class="panel-body">
                         <div class="col-md-10">{{competence.title}} </div>                        
-                        <div routerLink="/competence-informatique/{{competence.id}}" class="glyphicon glyphicon-pencil col-md-1" role="button"></div>
+                        <a routerLink="/competence-informatique/{{competence.id}}" class="glyphicon glyphicon-pencil col-md-1" role="button"></a>
                         <div class="glyphicon glyphicon-remove col-md-1" role="button"></div>
                     </div>
                 </div>

@@ -21,7 +21,7 @@ const appRoutes = [
   { path: 'home', component: HomeComponent },
   { path: 'list-competences-informatique', component: ListCompetenceInformatiqueComponent },
 
-  { path: 'competence-informatique/:id', component: CompetenceInformatiqueComponent },  
+  { path: 'competence-informatique/:id', component: CompetenceInformatiqueComponent, data: { preload: true } },  
 
   { path: 'add-competence-informatique', component: CompetenceInformatiqueFormComponent },
   { path: 'add-competence-type', component: CompetenceTypeComponent },

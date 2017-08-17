@@ -1,5 +1,44 @@
-<pre>{{componentDetails | json}}</pre>
-
 <div class="row">
-    <h1>{{componentDetails.title}}</h1>
+
+    <div class="panel panel-success" [hidden]="messageSuccess">
+        <div class=" panel-heading">L'enregistrement s'est effectuée avec succès</div>
+    </div>
+
+<h1>Modifier {{componentDetails.title}}</h1>
+
+
+
+<form [formGroup]="form" (ngSubmit)="editCompetence(form.value)">
+    <div class="form-group">
+
+        <div class="panel-default">
+            <label for="title">Titre</label>
+            <input type="text" name="title" placeholder="name" formControlName="title" [(ngModel)]="componentDetails.title" value="{{componentDetails.title}}" class="form-control">
+        </div>
+
+        <br>
+        <div>
+            <label for="type">Type de compétence</label>
+            <select type="text" name="type" formControlName="type" [(ngModel)]="componentDetails.type" class="form-control">
+                    <option value="{{type.id}}" *ngFor="let type of types" >{{type.title}}</option>    
+                </select>
+        </div>
+
+
+        <br>
+        <div>
+            <div>
+                <label for="type">Path</label>
+                <input type="text" name="path" placeholder="/competence-informatique/{{componentDetails.title}}" [(ngModel)]="componentDetails.path" formControlName="path" class="form-control">
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <button class="btn btn-success">Valider</button>
+       <a class="btn btn-default" href="/list-competences-informatique">Retour</a>
+
+
+    </div>
+</form>
 </div>

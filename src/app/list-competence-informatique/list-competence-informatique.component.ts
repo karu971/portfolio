@@ -17,18 +17,21 @@ export class ListCompetenceInformatiqueComponent implements OnInit {
 
   ngOnInit() {
 
+    console.log(this);
 
+
+    // this._portfolioService.competenceSubject
+    //   .subscribe(
+    //   data => {
+    //     // console.log(data);
+    //     this.competences = [data, ...this.competences];
+    //   }
+    //   )
     this._portfolioService.getCompetence()
       .subscribe(
       data => this.competences = data,
       error => console.error
       )
-    this._portfolioService.competenceSubject.subscribe(
-      data => {
-        console.log(data);
-        this.competences = [data, ...this.competences];
-      }
-    )
     this._portfolioService.getTypeCompetence()
       .subscribe(
       data => this.typeCompetences = data,

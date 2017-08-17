@@ -27,7 +27,8 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
       title: "",
       type: null,
       createdDate: new Date(),
-      modifiedDate: new Date()
+      modifiedDate: new Date(),
+      path:""
     })
 
     this._portfolioService.getTypeCompetence()
@@ -40,7 +41,7 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
       data => this.competences = data
       )
 
-    console.log(this.types)
+    // console.log(this.types)
   }
 
   createCompetence(competenceData) {    

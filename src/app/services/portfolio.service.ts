@@ -46,4 +46,14 @@ export class PortfolioService {
       })
   }
 
+  editComponent(editComponentData) {
+    
+    return this._http.post(this.BASE_URL + 'api/edit/competence', editComponentData)
+      .map(res => {
+
+        this.competenceSubject.next(editComponentData);
+
+      })
+  }
+
 }

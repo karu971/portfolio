@@ -1,32 +1,36 @@
 <div class="form-group">
-    <table class="table table-striped">
-        <thead class="thead-inverse">
-            <tr>
-                <th scope="row">#</th>
-                <th>Titre</th>
-            </tr>
-        </thead>
-        <tbody class="">
-            <tr *ngFor="let competence of competences let i=index">
-                <th>{{i}}</th>
-                <td>{{competence.title}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <form [formGroup]="form" (submit)="createCompetence(form.value)">
-        <h2>Ajouter une nouvelle compétence informatique</h2>
-        <br>
-        <label for="title">Titre</label>
-        <input type="text" name="title" formControlName="title" class="form-control" required>
-
-        <br>
-        <label for="title">Type de compétence</label>
-        <select name="type" formControlName="type" class="form-control" required>
-          <option *ngFor="let type of types" value="{{type.id}}">{{type.title}}</option>
-        </select>
-
-        <br>
-        <br>
-        <button type="submit" class="btn btn-success" [disabled]="!form.valid">Ajouter</button>
-    </form>
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th scope="row">#</th>
+                    <th>Titre</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                <tr *ngFor="let competence of competences let i=index">
+                    <th>{{i}}</th>
+                    <td>{{competence.title}}</td>
+                </tr>
+            </tbody>
+        </table>        
+    </div>
+    <div class="col-md-6">            
+        <form [formGroup]="form" (submit)="createCompetence(form.value)">
+            <h2>Ajouter une nouvelle compétence informatique</h2>
+            <br>
+            <label for="title">Titre</label>
+            <input type="text" name="title" formControlName="title" class="form-control" required>
+    
+            <br>
+            <label for="title">Type de compétence</label>
+            <select name="type" formControlName="type" class="form-control" required>
+              <option *ngFor="let type of types" value="{{type.id}}">{{type.title}}</option>
+            </select>
+    
+            <br>
+            <br>
+            <button type="submit" class="btn btn-success" [disabled]="!form.valid">Ajouter</button>
+        </form>
+    </div>
 </div>
