@@ -1,5 +1,5 @@
 <div class="form-group">
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <table class="table table-striped">
             <thead class="thead-inverse">
                 <tr>
@@ -9,28 +9,35 @@
             </thead>
             <tbody class="">
                 <tr *ngFor="let competence of competences let i=index">
-                    <th>{{i}}</th>
-                    <td>{{competence.title}}</td>
+                    <th class="col-xs-1">{{i}}</th>
+                    <td class="col-xs-9">{{competence.title}} </td>
+                    <td>
+                        <a routerLink="/competence-informatique/{{competence.id}}" class="glyphicon glyphicon-pencil col-xs-1" role="button"></a>
+                    </td>
+                    <td class="glyphicon glyphicon-remove col-xs-1" role="button" data-toggle="modal" data-target="#modalTarget" 
+                    ></td>
                 </tr>
             </tbody>
-        </table>        
+        </table>
     </div>
-    <div class="col-md-6">            
+    <div class="col-sm-6">
         <form [formGroup]="form" (submit)="createCompetence(form.value)">
             <h2>Ajouter une nouvelle compétence informatique</h2>
             <br>
             <label for="title">Titre</label>
-            <input type="text" name="title" formControlName="title" class="form-control" required>
-    
+            <input type="text" name="title" formControlName="title" class="form-control" required  clear-input>
+
             <br>
             <label for="title">Type de compétence</label>
             <select name="type" formControlName="type" class="form-control" required>
               <option *ngFor="let type of types" value="{{type.id}}">{{type.title}}</option>
             </select>
-    
+
             <br>
             <br>
             <button type="submit" class="btn btn-success" [disabled]="!form.valid">Ajouter</button>
         </form>
     </div>
 </div>
+
+<app-pop-up [verifValidationData]="verifValidationData"></app-pop-up>

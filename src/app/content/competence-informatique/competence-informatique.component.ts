@@ -91,6 +91,8 @@ export class CompetenceInformatiqueComponent implements OnInit {
     this._portfolioService.editComponent(editCompetence)
     .subscribe();
     this.messageSuccess = false;
+    location.href="/list-competences-informatique"
+    
     
   }
   

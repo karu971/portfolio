@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PortfolioService } from "../services/portfolio.service";
 import { FormGroup, FormBuilder } from "@angular/forms";
+import { PopUpComponent } from "../pop-up/pop-up.component";
 
 
 @Component({
@@ -12,8 +13,13 @@ export class ListCompetenceInformatiqueComponent implements OnInit {
 
   competences = [];
   typeCompetences = [];
+  verifValidationData = [];
+  
 
-  constructor(private _formBuilder: FormBuilder, private _portfolioService: PortfolioService) { }
+  constructor(
+    private _formBuilder: FormBuilder, 
+    private _portfolioService: PortfolioService,
+  private _popUpComponent: PopUpComponent) { }
 
   ngOnInit() {
 
@@ -40,9 +46,8 @@ export class ListCompetenceInformatiqueComponent implements OnInit {
 
   }
 
-  deleteCompetence(competenceId){    
-    this._portfolioService.deleteData(competenceId)
-    .subscribe();
+  testPopUp(competenceData){    
+    this.verifValidationData = competenceData
   }
 
 }

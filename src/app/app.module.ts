@@ -15,12 +15,14 @@ import { CompetenceInformatiqueFormComponent } from './add/competence-informatiq
 import { CompetenceTypeComponent } from './add/competence-type/competence-type.component';
 import { CompetenceInformatiqueComponent } from './content/competence-informatique/competence-informatique.component';
 import { Feature } from "./feature";
+import { PopUpComponent } from './pop-up/pop-up.component';
 
 
 const appRoutes = [
 
   { path: 'home', component: HomeComponent },
   { path: 'list-competences-informatique', component: ListCompetenceInformatiqueComponent },
+  { path: 'popup', component: PopUpComponent },
 
   { path: 'competence-informatique/:id', component: CompetenceInformatiqueComponent, data: { preload: true } },  
 
@@ -43,7 +45,8 @@ const appRoutes = [
     CompetencePipe,
     CompetenceInformatiqueFormComponent,
     CompetenceTypeComponent,
-    CompetenceInformatiqueComponent
+    CompetenceInformatiqueComponent,
+    PopUpComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,7 @@ const appRoutes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [PortfolioService,Feature],
+  providers: [PortfolioService,Feature,PopUpComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

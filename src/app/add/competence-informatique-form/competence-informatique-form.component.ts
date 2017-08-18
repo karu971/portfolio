@@ -15,10 +15,17 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
 
   form: FormGroup;
   types = [];
-  competences = [];
+  competences: any;
+  competenceSubject = new Subject();
+  deleteSubject = new Subject();
+  verifValidationData = [];
 
 
-  constructor(private formBuilder: FormBuilder, private _portfolioService: PortfolioService, private _router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private _portfolioService: PortfolioService,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
 
@@ -28,27 +35,34 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
       type: null,
       createdDate: new Date(),
       modifiedDate: new Date(),
-      path:""
+      path: ""
     })
 
     this._portfolioService.getTypeCompetence()
       .subscribe(
       data => this.types = data
       )
-   
-      this._portfolioService.getCompetence()
+
+    this._portfolioService.getCompetence()
       .subscribe(
       data => this.competences = data
       )
 
     // console.log(this.types)
+    this._portfolioService.competenceSubject.subscribe(data => {
+      this.competences = [...this.competences, data];
+    });
+    this._portfolioService.deleteSubject.subscribe(data => this.competences = data)
   }
 
-  createCompetence(competenceData) {    
+  createCompetence(competenceData) {
+    console.log(typeof (competenceData));
+    this.form.reset();
+
     this._portfolioService.addCompetence(competenceData)
       .subscribe();
-    this._router.navigate(['/list-competences-informatique'])
-
+    return this.competenceSubject.next(competenceData);
   }
+
 
 }

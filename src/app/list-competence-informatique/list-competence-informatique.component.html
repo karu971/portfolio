@@ -7,9 +7,9 @@
             <div *ngFor="let competence of competences" >
                 <div *ngIf="typeCompetence.id == competence.type" >
                     <div class="panel-body">
-                        <div class="col-md-10">{{competence.title}} </div>                        
-                        <a routerLink="/competence-informatique/{{competence.id}}" class="glyphicon glyphicon-pencil col-md-1" role="button"></a>
-                        <div class="glyphicon glyphicon-remove col-md-1" role="button"  (click)='deleteCompetence(competence)'></div>
+                        <div class="col-xs-10">{{competence.title}} </div>                        
+                        <a routerLink="/competence-informatique/{{competence.id}}" class="glyphicon glyphicon-pencil col-xs-1" role="button"></a>
+                        <div class="glyphicon glyphicon-remove col-xs-1" role="button" data-toggle="modal" data-target="#modalTarget" (click)="testPopUp(competence)"></div>
                     </div>
                 </div>
                 
@@ -17,3 +17,14 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- Button trigger modal
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+
+
+
+<app-pop-up [verifValidationData]="verifValidationData"></app-pop-up>
