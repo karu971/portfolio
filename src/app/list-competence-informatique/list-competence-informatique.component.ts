@@ -40,4 +40,9 @@ export class ListCompetenceInformatiqueComponent implements OnInit {
 
   }
 
+  deleteCompetence(competenceId){    
+    this._portfolioService.deleteData(competenceId)
+    .subscribe();
+  }
+
 }

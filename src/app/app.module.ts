@@ -13,7 +13,8 @@ import { PortfolioService } from './services/portfolio.service';
 import { CompetencePipe } from './pipes/competence.pipe';
 import { CompetenceInformatiqueFormComponent } from './add/competence-informatique-form/competence-informatique-form.component';
 import { CompetenceTypeComponent } from './add/competence-type/competence-type.component';
-import { CompetenceInformatiqueComponent } from './content/competence-informatique/competence-informatique.component'
+import { CompetenceInformatiqueComponent } from './content/competence-informatique/competence-informatique.component';
+import { Feature } from "./feature";
 
 
 const appRoutes = [
@@ -51,7 +52,7 @@ const appRoutes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [PortfolioService],
+  providers: [PortfolioService,Feature],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

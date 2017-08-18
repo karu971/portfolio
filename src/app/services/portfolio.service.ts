@@ -56,4 +56,11 @@ export class PortfolioService {
       })
   }
 
+  deleteData(deleteDataId){
+    return this._http.post(this.BASE_URL + `api/delete/competence`, deleteDataId)
+    .map(res => {
+      res.json();     
+    })
+  }
+
 }

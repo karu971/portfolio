@@ -3,22 +3,32 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { PortfolioService } from "../../services/portfolio.service";
 
+import { Feature } from "../../feature";
+
+
 @Component({
   selector: 'app-competence-informatique',
   templateUrl: './competence-informatique.component.html',
   styleUrls: ['./competence-informatique.component.css']
 })
 export class CompetenceInformatiqueComponent implements OnInit {
-
+  
   componentDetails = [];
   errorMessage = "";
   error = null;
   types = [];
   form: FormGroup;
   messageSuccess = true
-
-  constructor(private _formBuilder: FormBuilder, private _route: ActivatedRoute, private _portfolioService: PortfolioService, private _router: Router) { }
-
+  
+  constructor(
+    private _formBuilder: FormBuilder, 
+    private _route: ActivatedRoute, 
+    private _portfolioService: PortfolioService, 
+    private _router: Router,
+    private _feature: Feature,
+    
+  ) { }
+  
   ngOnInit() {
     this.form = this._formBuilder.group({
       id: -1,
@@ -28,25 +38,25 @@ export class CompetenceInformatiqueComponent implements OnInit {
       modifiedDate: new Date(),
       path: ""
     })
-
+    
     const id = this._route.snapshot.params.id;
-
+    
     this._portfolioService.getCompetenceById(id)
-      .subscribe(
-
+    .subscribe(
+      
       data => {
         this.handleServerResponse(data);
       },
       error => {
         this.handleError(error);
       }
-      )
+    )
     this._portfolioService.getTypeCompetence()
-      .subscribe(
+    .subscribe(
       data => this.types = data
-      )
-
-
+    )
+    
+    
   }
   handleServerResponse(response) {
     if (response.success) {
@@ -60,7 +70,7 @@ export class CompetenceInformatiqueComponent implements OnInit {
         path: response.dataCompetence.path
         
       });
-      this.getNewPath(response.dataCompetence.title);
+      this._feature.getNewUrl(response.dataCompetence.title);
       
     } else {
       this._router.navigate(['**'])
@@ -71,43 +81,17 @@ export class CompetenceInformatiqueComponent implements OnInit {
     this.error = error;
   }
   editCompetence(editCompetence) {
-
-    if (editCompetence.path == "") {
-      this.getNewPath(editCompetence.title);
-
-      editCompetence.path = "/competence-informatique/";
+    
+    if (editCompetence.path == "" || editCompetence.path == null) {
+      let newUrl = this._feature.getNewUrl(editCompetence.title);
+      console.log(newUrl)
+      
+      editCompetence.path = `/competence-informatique/${newUrl}`;
     }
     this._portfolioService.editComponent(editCompetence)
-      .subscribe();
+    .subscribe();
     this.messageSuccess = false;
-    // location.reload();
-    // this._router.navigate(['/list-competences-informatique'])
-
-  }
-  getNewPath(newPath){
-    newPath = newPath.trim().toLowerCase().replace(' ', '-')
-
-    var test = "tesé235t";
-
-    for(let i = 0; i < test.length; i++){
-      const regex = /^[a-z0-9]*/;
-      const str = test[i];
-      let m;
-      
-      if ((m = regex.exec(str)) !== null) {
-          // The result can be accessed through the `m`-variable.
-          m.forEach((match, groupIndex) => {
-            if(`${match}` == ""){
-              ${match} = "-";
-            }
-
-          });
-      }
-      
-    }
-
-    // console.log(fromCharCode(65))
     
   }
-
+  
 }

@@ -22,7 +22,7 @@ let addedCompetenceTypes = [];
 
 
 const getAllCompetences = (tab1, tab2) => {
-
+    
     return [...tab1, ...tab2]
 }
 
@@ -69,7 +69,7 @@ api.post('/add/competences', (req, res) => {
     const autoIncrem = getIncrementation();
     const competence = req.body;
     competence.id = autoIncrem;
-
+    
     addedCompetences = [competence, ...addedCompetences];
     fs.writeFile(dataCompetencesFile, JSON.stringify(getAllCompetences(dataCompetences, addedCompetences)), (err) => {
         if (err) throw err;
@@ -81,38 +81,42 @@ api.post('/add/competences', (req, res) => {
 api.post('/edit/competence', (req, res) => {
     const competenceEdit = req.body;
     const id = competenceEdit.id;
+    console.log(competenceEdit);
     const dataCompetence = getData(dataCompetencesFile)
     const dataCompetenceEdit = dataCompetence.filter(j => j.id === id)
-
     
-    // dataCompetenceEdit[0] = competenceEdit
     dataCompetenceEdit[0].title = competenceEdit.title
     dataCompetenceEdit[0].type = competenceEdit.type
     dataCompetenceEdit[0].createdDate = competenceEdit.createdDate
     dataCompetenceEdit[0].modifiedDate = competenceEdit.modifiedDate
     dataCompetenceEdit[0].path = competenceEdit.path
-
-
+    
     addedCompetences = dataCompetence
-
-    // const getExistingCompetence = req
-
-
-    console.log('******************');
-    console.log(addedCompetences);
-
-    // editCompetences = [competenceEdit, ...addedCompetences];
-
+    
     fs.writeFile(dataCompetencesFile, JSON.stringify(addedCompetences), (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
     });
-
-    // const id = parseInt(req.params.id, 10);
-    // const dataCompetence = getData(dataCompetencesFile).filter(j => j.id === id)
-
-
     res.json(dataCompetence);
+});
+
+api.post('/delete/competence/', (req,res) => {
+    
+    const competeceDelete = req.body;
+    const id = competeceDelete.id;
+    const dataCompetence = getData(dataCompetencesFile)
+    const dataCompetenceEdit = dataCompetence.filter(j => j.id === id)
+    const getIndex = dataCompetence.indexOf(dataCompetenceEdit[0]);
+    
+    dataCompetence.splice(getIndex,1)
+    
+    fs.writeFile(dataCompetencesFile, JSON.stringify(dataCompetence), (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+    });
+    
+    res.json(dataCompetence);
+    
 });
 
 
@@ -137,15 +141,15 @@ api.post('/add/competenceType', (req, res) => {
     const autoIncrem = getIncrementation();
     const competenceType = req.body;
     competenceType.id = autoIncrem;
-
+    
     addedCompetenceTypes = [competenceType, ...addedCompetenceTypes];
     fs.writeFile(dataCompetenceTypesFile, JSON.stringify(getAllCompetences(dataCompetenceTypes, addedCompetenceTypes)), (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
     });
-
+    
     res.json(competenceType);
-
+    
 });
 
 
