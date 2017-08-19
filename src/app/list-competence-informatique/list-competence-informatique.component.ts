@@ -11,7 +11,7 @@ import { PopUpComponent } from "../pop-up/pop-up.component";
 })
 export class ListCompetenceInformatiqueComponent implements OnInit {
 
-  competences = [];
+  competences: any;
   typeCompetences = [];
   verifValidationData = [];
   
@@ -26,28 +26,22 @@ export class ListCompetenceInformatiqueComponent implements OnInit {
     console.log(this);
 
 
-    // this._portfolioService.competenceSubject
-    //   .subscribe(
-    //   data => {
-    //     // console.log(data);
-    //     this.competences = [data, ...this.competences];
-    //   }
-    //   )
-    this._portfolioService.getCompetence()
+    this._portfolioService.getData('competences')
       .subscribe(
       data => this.competences = data,
       error => console.error
       )
-    this._portfolioService.getTypeCompetence()
+    this._portfolioService.getData('competenceType')
       .subscribe(
       data => this.typeCompetences = data,
       error => console.error
       )
+    this._portfolioService.deleteSubject.subscribe(data => this.competences = data)    
 
   }
 
-  testPopUp(competenceData){    
-    this.verifValidationData = competenceData
+  deleteItem(competenceData){    
+    this.verifValidationData = [{data: competenceData, contentType: 'competence'}]
   }
 
 }

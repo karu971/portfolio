@@ -3,8 +3,8 @@ body{
     margin-top: 73px;
 }
 
-.glyphicon:hover{
-    
+.glyphicon{
+    text-align: center
 }
 .glyphicon-pencil{
 

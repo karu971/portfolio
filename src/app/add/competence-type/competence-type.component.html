@@ -1,30 +1,24 @@
 <div class="row">
-    <!-- <div class="panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Types de compétence existants</h3>
-        </div>
-        <div class="panel-body panel-default" *ngFor="let competenceType of competenceTypes">
-            {{competenceType | json}}
-            {{competenceType.title}}
-        </div>
-    </div> -->
     <div>
         <table class="table table-striped">
             <thead class="thead-inverse">
                 <tr>
                     <th scope="row">#</th>
                     <th>Types de compétence existants</th>
+                    <th>Supprimer</th>
                 </tr>
             </thead>
             <tbody class="">
                 <tr *ngFor="let competenceType of competenceTypes let i=index">
                     <th>{{i}}</th>
                     <td>{{competenceType.title}}</td>
+                    <td class="glyphicon glyphicon-remove col-xs-1" role="button" data-toggle="modal" data-target="#modalTarget" (click)="deleteCompetenceTypeData(competenceType)" ></td>
+                    
                 </tr>
             </tbody>
         </table>
     </div>
-
+    
     <div class="form-group">
         <form [formGroup]="form" (submit)="createCompetenceType(form.value)">
             <h2>Ajouter un nouveau type de compétence informatique</h2>
@@ -32,7 +26,7 @@
             <label for="title">Titre</label>
             <input type="text" name="title" formControlName="title" class="form-control">
             <div [hidden]="alreadyExists" class="alert alert-danger">Ce type de compétence existe déjà.</div>
-
+            
             <br>
             <br>
             <button type="submit" class="btn btn-success">Ajouter</button>
@@ -40,5 +34,6 @@
     </div>
 </div>
 
-<!-- <app-pop-up [verifValidationData]="verifValidationData"></app-pop-up> -->
 
+
+                    <app-pop-up [verifValidationData]="verifValidationData"></app-pop-up> 

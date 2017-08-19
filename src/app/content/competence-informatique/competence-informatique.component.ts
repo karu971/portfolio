@@ -41,17 +41,19 @@ export class CompetenceInformatiqueComponent implements OnInit {
     
     const id = this._route.snapshot.params.id;
     
-    this._portfolioService.getCompetenceById(id)
+    this._portfolioService.itemById({ItemId: id, contentType: "competence"})
     .subscribe(
       
       data => {
+        console.log(data);
         this.handleServerResponse(data);
+        
       },
       error => {
         this.handleError(error);
       }
     )
-    this._portfolioService.getTypeCompetence()
+    this._portfolioService.getData("competenceType")
     .subscribe(
       data => this.types = data
     )
@@ -59,18 +61,19 @@ export class CompetenceInformatiqueComponent implements OnInit {
     
   }
   handleServerResponse(response) {
+    
     if (response.success) {
-      this.componentDetails = response.dataCompetence;
+      this.componentDetails = response.dataById;
       this.form = this._formBuilder.group({
-        id: response.dataCompetence.id,
-        title: response.dataCompetence.title,
-        type: parseInt(response.dataCompetence.type),
-        createdDate: response.dataCompetence.createdDate,
+        id: response.dataById.id,
+        title: response.dataById.title,
+        type: parseInt(response.dataById.type),
+        createdDate: response.dataById.createdDate,
         modifiedDate: new Date(),
-        path: response.dataCompetence.path
+        path: response.dataById.path
         
       });
-      this._feature.getNewUrl(response.dataCompetence.title);
+      this._feature.getNewUrl(response.dataById.title);
       
     } else {
       this._router.navigate(['**'])
@@ -88,6 +91,7 @@ export class CompetenceInformatiqueComponent implements OnInit {
       
       editCompetence.path = `/competence-informatique/${newUrl}`;
     }
+
     this._portfolioService.editComponent(editCompetence)
     .subscribe();
     this.messageSuccess = false;
