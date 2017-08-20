@@ -14,7 +14,7 @@ import { PortfolioService } from "../../services/portfolio.service";
 export class CompetenceInformatiqueFormComponent implements OnInit {
   
   form: FormGroup;
-  types = [];
+  types: any;
   competences: any;
   competenceSubject = new Subject();
   deleteSubject = new Subject();
@@ -41,12 +41,12 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
     
     this._portfolioService.getData("competence")
     .subscribe(
-      data => this.types = data
+      data => this.competences = data
     )
     
     this._portfolioService.getData("competenceType")
     .subscribe(
-      data => this.competences = data
+      data => this.types = data
     )
     
     // console.log(this.types)

@@ -1,0 +1,52 @@
+<div class="form-group" >
+    <div class="col-sm-6">
+        {{this.ajouteFormation}}
+        <table class="table table-striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th scope="row">#</th>
+                    <th>titre</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                <tr *ngFor="let formation of formations let i=index">
+                    <th class="col-xs-1">{{i}}</th>
+                    <td class="col-xs-9">{{formation.title}} </td>
+                    <td class="glyphicon glyphicon-pencil col-xs-1" role="button" (click)="editFormationData(formation)"></td>
+                    <td class="glyphicon glyphicon-remove col-xs-1" role="button" (click)="deleteFormationData(formation)" data-toggle="modal" data-target="#modalTarget"></td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div  class="col-sm-6">
+        
+        <form [formGroup]="form" (ngSubmit)="submitFormation(form.value)">
+            <h2 class="form-title">{{titleContenu}}</h2>        
+            <br>
+            <div>
+                <label for="title">Titre</label>
+                <input type="text" formControlName="title" name="title" class="form-control">
+            </div>
+            
+            <br>
+            <div>
+                <label for="body">Description</label>
+                <input type="text" formControlName="body" name="body" class="form-control">
+            </div>
+            
+            <br>
+            <div>
+                <label for="annee">Année</label>
+                <input type="text" formControlName="annee" name="annee" class="form-control">
+            </div>
+            
+            
+            <br>
+            <br>
+            <button class="btn btn-success">Valider</button>
+            <a class="btn btn-primary" (click)="resetFormationData()">Ajouter un nouvelle formation</a>
+        </form>
+    </div>
+</div>

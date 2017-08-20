@@ -16,6 +16,7 @@ import { CompetenceTypeComponent } from './add/competence-type/competence-type.c
 import { CompetenceInformatiqueComponent } from './content/competence-informatique/competence-informatique.component';
 import { Feature } from "./feature";
 import { PopUpComponent } from './pop-up/pop-up.component';
+import { AddFormationComponent } from './add/add-formation/add-formation.component';
 
 
 const appRoutes = [
@@ -28,6 +29,7 @@ const appRoutes = [
 
   { path: 'add-competence-informatique', component: CompetenceInformatiqueFormComponent },
   { path: 'add-competence-type', component: CompetenceTypeComponent },
+  { path: 'add-formation', component: AddFormationComponent },
   {
     path: '',
     redirectTo: '/home',
@@ -46,7 +48,8 @@ const appRoutes = [
     CompetenceInformatiqueFormComponent,
     CompetenceTypeComponent,
     CompetenceInformatiqueComponent,
-    PopUpComponent
+    PopUpComponent,
+    AddFormationComponent
   ],
   imports: [
     BrowserModule,

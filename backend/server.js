@@ -44,14 +44,18 @@ const getData = (file) => {
     return JSON.parse(fs.readFileSync(file));
 }
 
-const verifiyContentType = (contentType) => {
-    
+let verifyContentType = (contentType) => {
+    // test("test: ", contentType)
+
     switch(contentType){
         case "competenceType" :
-        return './data/competence-type.json';
+        return "./data/competence-type.json";
         
         case "competence" :
         return "./data/competences.json";
+        
+        case "formation" :
+        return "./data/formations.json";
         
         default :
         console.log("Le type de contenu n'est pas correct")    
@@ -77,14 +81,11 @@ api.get('/incrementation', (req, res) => {
     res.send(dataIncrementation);
 });
 
-api.get('/competences', (req, res) => {
-    res.send(dataCompetences);
-});
 
 api.post('/add/:contentType', (req, res) => {
     
     const contentType = req.params.contentType; 
-    const getContentTypeData = verifiyContentType(contentType)
+    const getContentTypeData = verifyContentType(contentType)
     
     const body = req.body; 
     body.id = getIncrementation();
@@ -102,109 +103,116 @@ api.post('/add/:contentType', (req, res) => {
 });
 
 
-api.post('/edit/competence', (req, res) => { // TODO
-    const competenceEdit = req.body;
-    const id = competenceEdit.id;
-    console.log(competenceEdit);
-    const dataCompetence = getData(dataCompetencesFile)
-    const dataCompetenceEdit = dataCompetence.filter(j => j.id === id)
-    
-    dataCompetenceEdit[0].title = competenceEdit.title
-    dataCompetenceEdit[0].type = competenceEdit.type
-    dataCompetenceEdit[0].createdDate = competenceEdit.createdDate
-    dataCompetenceEdit[0].modifiedDate = competenceEdit.modifiedDate
-    dataCompetenceEdit[0].path = competenceEdit.path
-    
-    addedCompetences = dataCompetence
-    
-    fs.writeFile(dataCompetencesFile, JSON.stringify(addedCompetences), (err) => {
-        if (err) throw err;
-        console.log('The file has been saved!');
-    });
-    res.json(dataCompetence);
-});
-
-
-api.get('/:contentType/:id', (req, res) => {
-    
+api.post('/edit/:contentType/:id', (req, res) => { // TODO
+    const body = req.body;
     const contentType = req.params.contentType; // recupere le Type de contenu
     const contentTypeId = req.params.id; // recupere le Type de contenu
-    const getcontentTypeData = verifiyContentType(contentType); // recupere l"url du fichier Json du type de contenu
-    
+    const getcontentTypeData = verifyContentType(contentType); // recupere l"url du fichier Json du type de contenu
+        
     const getAllData = getData(getcontentTypeData) // recupere toutes les data du type de contenu
     const filterData = getAllData.filter(j => j.id == contentTypeId) // recupere un element du fichier de data a partir de l'id
     
     if (filterData.length === 1) {
-        res.send({ success: true, dataById: filterData[0] });
+        filterData[0].id = body.id;
+        filterData[0].title = body.title;
+        filterData[0].body = body.body;
+        filterData[0].annee = body.annee;
+        filterData[0].createdDate = body.createdDate;
+        filterData[0].modifiedDate = body.modifiedDate;
+
+        fs.writeFile(getcontentTypeData, JSON.stringify(getAllData), (err) => {
+            if (err) throw err;
+            console.log('The file has been saved!');
+        });        
+        test(getAllData)
+        
+        res.send(getAllData);
     } else {
-        res.json({ success: false, message: " Aucune competence" })
+        res.json({ success: false, message: "Erreur dans la saisie" })
     }
-});
-
-
-
-api.get('/competenceType', (req, res) => {
-    res.send(dataCompetenceTypes);
-});
-
-api.post('/add/competenceType', (req, res) => {
-    const dataCompetenceType = getData(dataCompetenceTypesFile);
-    const autoIncrem = getIncrementation();
-    const competenceType = req.body;
-    competenceType.id = autoIncrem;
     
-    addedCompetenceTypes = [competenceType, ...addedCompetenceTypes];
-    fs.writeFile(dataCompetenceTypesFile, JSON.stringify(getAllCompetences(dataCompetenceTypes, addedCompetenceTypes)), (err) => {
-        if (err) throw err;
-        console.log('The file has been saved!');
+});
+
+
+
+
+
+// api.get('/competenceType', (req, res) => {
+    //     res.send(dataCompetenceTypes);
+    // });
+    
+    // api.post('/add/competenceType', (req, res) => {
+    //     const dataCompetenceType = getData(dataCompetenceTypesFile);
+    //     const autoIncrem = getIncrementation();
+    //     const competenceType = req.body;
+    //     competenceType.id = autoIncrem;
+        
+    //     addedCompetenceTypes = [competenceType, ...addedCompetenceTypes];
+    //     fs.writeFile(dataCompetenceTypesFile, JSON.stringify(getAllCompetences(dataCompetenceTypes, addedCompetenceTypes)), (err) => {
+    //         if (err) throw err;
+    //         console.log('The file has been saved!');
+    //     });
+        
+    //     res.json(competenceType);
+        
+    // });
+    
+    
+    api.get('/:contentType', (req,res) => {
+        
+        const contentType = req.params.contentType;
+        const getContentTypeData = verifyContentType(contentType);
+        
+        const getAllData = getData(getContentTypeData)
+        
+        res.send(getAllData);
     });
     
-    res.json(competenceType);
-    
-});
-
-
-api.get('/:contentType', (req,res) => {
-    const contentType = req.params.contentType;
-    console.log(contentType)
-    const getContentTypeData = verifyContentType(contentType);
-
-    const getAllData = getData(contentType)
-    
-    res.json(getAllData);
-    
-
-    // console.log()
-});
-
-
-api.post('/delete/:contentType', (req,res) => {
-    
-    const contentType = req.params.contentType; // recupere le Type de contenu
-    const getcontentTypeData = verifiyContentType(contentType); // recupere l"url du fichier Json du type de contenu
-    
-    const body = req.body; 
-    const id = body.id;
-    const getAllData = getData(getcontentTypeData) // recupere toutes les data du type de contenu
-    
-    const filterData = getAllData.filter(j => j.id === id) // recupere un element du fichier de data a partir de l'id
-    const getIndex = getAllData.indexOf(filterData[0]); // recupere index 
-    getAllData.splice(getIndex,1) // releve l'element souhaité du tableau
-    
-    fs.writeFile(getcontentTypeData, JSON.stringify(getAllData), (err) => { // sauvegarde les nouvelles données
-        if (err) throw err;
-        console.log('The file has been saved!');
+    api.get('/:contentType/:id', (req, res) => {
+        
+        const contentType = req.params.contentType; // recupere le Type de contenu
+        const contentTypeId = req.params.id; // recupere le Type de contenu
+        const getcontentTypeData = verifyContentType(contentType); // recupere l"url du fichier Json du type de contenu
+        
+        const getAllData = getData(getcontentTypeData) // recupere toutes les data du type de contenu
+        const filterData = getAllData.filter(j => j.id == contentTypeId) // recupere un element du fichier de data a partir de l'id
+        
+        if (filterData.length === 1) {
+            res.send({ success: true, dataById: filterData[0] });
+        } else {
+            res.json({ success: false, message: " Aucune competence" })
+        }
     });
     
-    res.json(getAllData);
-});
-
-
-
-app.use('/api', api);
-
-const port = 4201;
-
-app.listen(port, () => {
-    console.log(`listening on port ${port}`);
-});
+    
+    
+    api.post('/delete/:contentType', (req,res) => {
+        
+        const contentType = req.params.contentType; // recupere le Type de contenu
+        const getcontentTypeData = verifyContentType(contentType); // recupere l"url du fichier Json du type de contenu
+        
+        const body = req.body; 
+        const id = body.id;
+        const getAllData = getData(getcontentTypeData) // recupere toutes les data du type de contenu
+        
+        const filterData = getAllData.filter(j => j.id === id) // recupere un element du fichier de data a partir de l'id
+        const getIndex = getAllData.indexOf(filterData[0]); // recupere index 
+        getAllData.splice(getIndex,1) // releve l'element souhaité du tableau
+        
+        fs.writeFile(getcontentTypeData, JSON.stringify(getAllData), (err) => { // sauvegarde les nouvelles données
+            if (err) throw err;
+            console.log('The file has been saved!');
+        });
+        
+        res.json(getAllData);
+    });
+    
+    
+    
+    app.use('/api', api);
+    
+    const port = 4201;
+    
+    app.listen(port, () => {
+        console.log(`listening on port ${port}`);
+    });

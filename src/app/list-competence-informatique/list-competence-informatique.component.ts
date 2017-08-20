@@ -26,7 +26,7 @@ export class ListCompetenceInformatiqueComponent implements OnInit {
     console.log(this);
 
 
-    this._portfolioService.getData('competences')
+    this._portfolioService.getData('competence')
       .subscribe(
       data => this.competences = data,
       error => console.error

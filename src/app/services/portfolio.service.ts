@@ -11,6 +11,7 @@ export class PortfolioService {
   
   competence = [];
   competenceSubject = new Subject();
+  editSubject = new Subject();
   deleteSubject = new Subject();
   BASE_URL = "http://localhost:4201/";
   
@@ -31,11 +32,10 @@ export class PortfolioService {
       
     })
   }
-  
-  
+
   
   itemById(componentById) {
-    return this._http.get(this.BASE_URL + `api/competence/157`)
+    return this._http.get(this.BASE_URL + `api/${componentById[0].contentType}/${componentById[0].id}`)
     .map(res => res.json()  )
   }
     
@@ -58,6 +58,13 @@ export class PortfolioService {
       )
     })
   }
+  
+  
+  editData(getData){    
+    return this._http.post(this.BASE_URL + `api/edit/${getData[0].contentType}/${getData[0].data.id}`, getData[0].data)
+       .map(res => this.editSubject.next(res.json()))
+  }
+  
   
   
   
