@@ -1,0 +1,9 @@
+<div class="panel panel-success" *ngIf="getMessage.message && getMessage.type == 'success'">
+    <div class=" panel-heading">{{getMessage.message}}</div>
+</div>
+
+
+<div class="panel panel-danger" *ngIf="getMessage.message && getMessage.type == 'error'">
+    <div class=" panel-heading">{{getMessage.message}}</div>
+</div>
+

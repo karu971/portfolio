@@ -12,24 +12,26 @@ import { Feature } from "../../feature";
   styleUrls: ['./competence-informatique.component.css']
 })
 export class CompetenceInformatiqueComponent implements OnInit {
-  
-  componentDetails = [];
+
+
+  componentDetails: any = [];
+  competenceTypes: any = [];
   errorMessage = "";
   error = null;
   types = [];
   form: FormGroup;
   messageSuccess = true
-  
+  getId: any
+
   constructor(
-    private _formBuilder: FormBuilder, 
-    private _route: ActivatedRoute, 
-    private _portfolioService: PortfolioService, 
+    private _formBuilder: FormBuilder,
+    private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private _feature: Feature,
-    
+    private _portfolioService: PortfolioService
   ) { }
-  
+
   ngOnInit() {
+
     this.form = this._formBuilder.group({
       id: -1,
       title: "",
@@ -38,66 +40,33 @@ export class CompetenceInformatiqueComponent implements OnInit {
       modifiedDate: new Date(),
       path: ""
     })
-    
-    const id = this._route.snapshot.params.id;
-    
-    this._portfolioService.itemById({ItemId: id, contentType: "competence"})
-    .subscribe(
-      
-      data => {
-        console.log(data);
-        this.handleServerResponse(data);
-        
-      },
-      error => {
-        this.handleError(error);
-      }
-    )
-    this._portfolioService.getData("competenceType")
-    .subscribe(
-      data => this.types = data
-    )
-    
-    
-  }
-  handleServerResponse(response) {
-    
-    if (response.success) {
-      this.componentDetails = response.dataById;
-      this.form = this._formBuilder.group({
-        id: response.dataById.id,
-        title: response.dataById.title,
-        type: parseInt(response.dataById.type),
-        createdDate: response.dataById.createdDate,
-        modifiedDate: new Date(),
-        path: response.dataById.path
-        
-      });
-      this._feature.getNewUrl(response.dataById.title);
-      
-    } else {
-      this._router.navigate(['**'])
-    }
-  }
-  handleError(error) {
-    console.log('handleError ', error.message);
-    this.error = error;
-  }
-  editCompetence(editCompetence) {
-    
-    if (editCompetence.path == "" || editCompetence.path == null) {
-      let newUrl = this._feature.getNewUrl(editCompetence.title);
-      console.log(newUrl)
-      
-      editCompetence.path = `/competence-informatique/${newUrl}`;
-    }
 
-    this._portfolioService.editComponent(editCompetence)
-    .subscribe();
-    this.messageSuccess = false;
-    location.href="/list-competences-informatique"
-    
-    
+
+    this.getId = this._activatedRoute.snapshot.params
+
+    this._portfolioService.getData("competenceType")
+      .subscribe(
+      data => this.competenceTypes = data)
+
+
+    this._portfolioService.itemById([{ data: this.getId, contentType: "competence" }])
+      .subscribe(
+      data => {
+        this.componentDetails = data.data
+      });
   }
-  
+
+  editCompetence(editData) {
+
+    editData.id = parseInt(this.getId.id);
+    console.log(this.getId );
+    
+    this._portfolioService.editData([{ data: editData, contentType: "competence" }])
+    .subscribe(
+      data =>console.log(data),
+      err => console.log(err),
+      () => this._router.navigate(['/list-competences-informatique'])
+      
+    )
+  }
 }

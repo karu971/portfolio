@@ -1,3 +1,5 @@
+<app-messages [getMessage]="getMessage"></app-messages>
+
 <div class="form-group">
     <div class="col-sm-6">
         <table class="table table-striped">
@@ -12,6 +14,7 @@
                 <tr *ngFor="let competenceType of competenceTypes let i=index">
                     <th>{{i}}</th>
                     <td>{{competenceType.title}}</td>
+                    <td class="glyphicon glyphicon-pencil col-xs-1" role="button" (click)="editFormationData(competenceType)"></td>
                     <td class="glyphicon glyphicon-remove col-xs-1" role="button" data-toggle="modal" data-target="#modalTarget" (click)="deleteCompetenceTypeData(competenceType)" ></td>
                     
                 </tr>
@@ -20,17 +23,19 @@
     </div>
     
     <div  class="col-sm-6">
-        <form [formGroup]="form" (submit)="createCompetenceType(form.value)">
-            <h2>Ajouter un nouveau type de compétence informatique</h2>
+        <form [formGroup]="form" (ngSubmit)="submitcompetenceType(form.value)">
+            <h2>{{titleContent}}</h2>
             <br>
             <label for="title">Titre</label>
-            <input type="text" name="title" formControlName="title" class="form-control">
+            <input type="text" name="title" formControlName="title" class="form-control" required>
             <div [hidden]="alreadyExists" class="alert alert-danger">Ce type de compétence existe déjà.</div>
             
             <br>
             <br>
-            <button type="submit" class="btn btn-success">Ajouter</button>
-        </form>
+            <button class="btn btn-success" [disabled]="!form.valid">Ajouter</button>
+            <a class="btn btn-primary" (click)="resetFormationData()">Ajouter un nouvelle formation</a>
+        </form>            
+        
     </div>
 </div>
 

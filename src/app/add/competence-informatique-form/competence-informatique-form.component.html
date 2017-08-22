@@ -1,3 +1,5 @@
+<app-messages [getMessage]="getMessage"></app-messages>
+
 <div class="form-group">
     <div class="col-sm-6">
         <table class="table table-striped">
@@ -11,18 +13,17 @@
                 <tr *ngFor="let competence of competences let i=index">
                     <th class="col-xs-1">{{i}}</th>
                     <td class="col-xs-9">{{competence.title}} </td>
-                    <td>
-                        <a routerLink="/competence-informatique/{{competence.id}}" class="glyphicon glyphicon-pencil col-xs-1" role="button"></a>
-                    </td>
-                    <td class="glyphicon glyphicon-remove col-xs-1" role="button" (click)="deleteCompetenceData(competence)" data-toggle="modal" data-target="#modalTarget"></td>
+                    <td class="glyphicon glyphicon-pencil col-xs-1" role="button" (click)="editFormationData(competence)"></td>
+                    <td class="glyphicon glyphicon-remove col-xs-1" role="button" (click)="deleteCompetenceData(competence)" data-toggle="modal"
+                    data-target="#modalTarget"></td>
                     
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="col-sm-6">
-        <form [formGroup]="form" (submit)="createCompetence(form.value)">
-            <h2>Ajouter une nouvelle compétence informatique</h2>
+        <form [formGroup]="form" (submit)="submitForm(form.value)">
+            <h2>{{titleContenu}}</h2>
             <br>
             <label for="title">Titre</label>
             <input type="text" name="title" formControlName="title" class="form-control" required>
@@ -36,8 +37,10 @@
             <br>
             <br>
             <button type="submit" class="btn btn-success" [disabled]="!form.valid">Ajouter</button>
+            <a class="btn btn-primary" (click)="resetFormationData()">Ajouter un nouvelle formation</a>
+            
         </form>
     </div>
 </div>
 
-                    <app-pop-up [verifValidationData]="verifValidationData"></app-pop-up> 
+<app-pop-up [verifValidationData]="verifValidationData"></app-pop-up>

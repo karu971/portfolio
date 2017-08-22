@@ -17,19 +17,24 @@ import { CompetenceInformatiqueComponent } from './content/competence-informatiq
 import { Feature } from "./feature";
 import { PopUpComponent } from './pop-up/pop-up.component';
 import { AddFormationComponent } from './add/add-formation/add-formation.component';
+import { MessagesComponent } from './messages/messages.component';
+import { AddLanguesComponent } from './add/add-langues/add-langues.component';
+import { AddExperiencesProfessionnellesComponent } from './add/add-experiences-professionnelles/add-experiences-professionnelles.component';
 
 
 const appRoutes = [
-
+  
   { path: 'home', component: HomeComponent },
   { path: 'list-competences-informatique', component: ListCompetenceInformatiqueComponent },
   { path: 'popup', component: PopUpComponent },
-
+  
   { path: 'competence-informatique/:id', component: CompetenceInformatiqueComponent, data: { preload: true } },  
-
+  
   { path: 'add-competence-informatique', component: CompetenceInformatiqueFormComponent },
   { path: 'add-competence-type', component: CompetenceTypeComponent },
   { path: 'add-formation', component: AddFormationComponent },
+  { path: 'add-langue', component: AddLanguesComponent },
+  { path: 'add-experience', component: AddExperiencesProfessionnellesComponent },
   {
     path: '',
     redirectTo: '/home',
@@ -49,7 +54,10 @@ const appRoutes = [
     CompetenceTypeComponent,
     CompetenceInformatiqueComponent,
     PopUpComponent,
-    AddFormationComponent
+    AddFormationComponent,
+    MessagesComponent,
+    AddLanguesComponent,
+    AddExperiencesProfessionnellesComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +66,7 @@ const appRoutes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [PortfolioService,Feature,PopUpComponent],
+  providers: [PortfolioService,Feature,PopUpComponent,MessagesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

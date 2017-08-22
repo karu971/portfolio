@@ -2,7 +2,7 @@
 
 <div class="form-group" >
     <div class="col-sm-6">
-        {{this.ajouteFormation}}
+        {{ajouterLangue}}
         <table class="table table-striped">
             <thead class="thead-inverse">
                 <tr>
@@ -11,11 +11,11 @@
                 </tr>
             </thead>
             <tbody class="">
-                <tr *ngFor="let formation of formations let i=index">
+                <tr *ngFor="let langue of langues let i=index">
                     <th class="col-xs-1">{{i}}</th>
-                    <td class="col-xs-9">{{formation.title}} </td>
-                    <td class="glyphicon glyphicon-pencil col-xs-1" role="button" (click)="editFormationData(formation)"></td>
-                    <td class="glyphicon glyphicon-remove col-xs-1" role="button" (click)="deleteFormationData(formation)" data-toggle="modal" data-target="#modalTarget"></td>
+                    <td class="col-xs-9">{{langue.title}} </td>
+                    <td class="glyphicon glyphicon-pencil col-xs-1" role="button" (click)="editLangueData(langue)"></td>
+                    <td class="glyphicon glyphicon-remove col-xs-1" role="button" (click)="deleteLangueData(langue)" data-toggle="modal" data-target="#modalTarget"></td>
                     
                 </tr>
             </tbody>
@@ -24,7 +24,7 @@
     
     <div  class="col-sm-6">
         
-        <form [formGroup]="form" (ngSubmit)="submitFormation(form.value)">
+        <form [formGroup]="form" (ngSubmit)="submitLangue(form.value)">
             <h2 class="form-title">{{titleContenu}}</h2>        
             <br>
             <div>
@@ -39,16 +39,11 @@
             </div>
             
             <br>
-            <div>
-                <label for="annee">Année</label>
-                <input type="text" formControlName="annee" name="annee" class="form-control" required>
-            </div>
-            
             
             <br>
             <br>
             <button class="btn btn-success" [disabled]="!form.valid">Valider</button>
-            <a class="btn btn-primary" (click)="resetFormationData()">Ajouter un nouvelle formation</a>
+            <a class="btn btn-primary" (click)="resetLangueData()">Ajouter un nouvelle langue</a>
         </form>
     </div>
 </div>

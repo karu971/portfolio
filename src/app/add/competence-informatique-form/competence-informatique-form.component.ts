@@ -12,24 +12,27 @@ import { PortfolioService } from "../../services/portfolio.service";
   styleUrls: ['./competence-informatique-form.component.css']
 })
 export class CompetenceInformatiqueFormComponent implements OnInit {
-  
+
   form: FormGroup;
-  types: any;
-  competences: any;
+  types: any = [];
+  competences: any= [];
   competenceSubject = new Subject();
-  deleteSubject = new Subject();
   verifValidationData = [];
   incrementation: any;
-  
-  
+  titleContenu: string = "Ajouter une nouvelle compétence informatique";
+  ajouterCompetence: boolean = true;
+  getMessage = { type: "", message: "" };
+
+
+
   constructor(
     private formBuilder: FormBuilder,
     private _portfolioService: PortfolioService,
     private _router: Router
   ) { }
-  
+
   ngOnInit() {
-    
+
     this.form = this.formBuilder.group({
       id: -1,
       title: "",
@@ -38,38 +41,70 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
       modifiedDate: new Date(),
       path: ""
     })
-    
+
     this._portfolioService.getData("competence")
-    .subscribe(
+      .subscribe(
       data => this.competences = data
-    )
-    
+      )
+
     this._portfolioService.getData("competenceType")
-    .subscribe(
+      .subscribe(
       data => this.types = data
-    )
-    
+      )
+
     // console.log(this.types)
+
     this._portfolioService.competenceSubject.subscribe(data => {
       this.competences = [...this.competences, data];
     });
-    this._portfolioService.deleteSubject.subscribe(data => this.competences = data)    
+    this._portfolioService.deleteSubject.subscribe(data => {
+      this.competences = data;
+      this.getMessage = { type: "success", message: "La nouvelle formation a été supprimée avec succèss" }
+    })
+    this._portfolioService.editSubject.subscribe(data => {
+      this.competences = data;
+      this.getMessage = { type: "success", message: "La nouvelle formation a été modifiée avec succèss" }
+    })
   }
-  
-  createCompetence(competenceData) {
-    
-    this.form.reset();
-    competenceData.createdDate = new Date();
-    competenceData.modifiedDate = new Date();
-    
-    this._portfolioService.addData([{data: competenceData, contentType: "competence"}])
-    .subscribe();
 
-    return this.competenceSubject.next(competenceData);
+
+  submitForm(formData) {
+    this.form.reset();
+
+    if (this.ajouterCompetence) {
+      formData.createdDate = new Date();
+      formData.modifiedDate = new Date();
+
+      this._portfolioService.addData([{ data: formData, contentType: "competence" }])
+        .subscribe()
+    } else {
+      this._portfolioService.editData([{ data: formData, contentType: "competence" }])
+      .subscribe();
+    }
   }
-  
-  deleteCompetenceData(competenceData){
-    this.verifValidationData = [{data: competenceData, contentType: "competence"}]    
+
+  deleteCompetenceData(competenceData) {
+    this.verifValidationData = [{ data: competenceData, contentType: "competence" }]
   }
-  
+
+  editFormationData(competenceData) {
+    this.titleContenu = "Modifier la formation";
+    this.ajouterCompetence = false;
+    this.form = this.formBuilder.group({
+      id: competenceData.id,
+      title: competenceData.title,
+      type: competenceData.type,
+      createdDate: competenceData.createdDate,
+      modifiedDate: competenceData.modifiedDate,
+      path: competenceData.path
+    });
+  }
+
+
+  resetFormationData() {
+    this.titleContenu = "Ajouter une nouvelle compétence informatique";
+    this.form.reset();
+    this.ajouterCompetence = true;
+  }
+
 }

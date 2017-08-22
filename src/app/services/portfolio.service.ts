@@ -14,33 +14,38 @@ export class PortfolioService {
   editSubject = new Subject();
   deleteSubject = new Subject();
   BASE_URL = "http://localhost:4201/";
+  messageSuccess: string = "";
+  
   
   constructor(private _http: Http) { }
   
   getIncrementationNumber(){
+    
     return this._http.get(this.BASE_URL + `api/incrementation`)
     .map(res => res.json())
   }
-
   
-  editComponent(editComponentData) {
+  
+  // editComponent(editComponentData) {
     
-    return this._http.post(this.BASE_URL + 'api/edit/competence', editComponentData)
-    .map(res => {
+  //   return this._http.post(this.BASE_URL + 'api/edit/competence', editComponentData)
+  //   .map(res => {
       
-      this.competenceSubject.next(editComponentData);
+  //     this.competenceSubject.next(editComponentData);
       
-    })
-  }
-
+  //   })
+  // }
+  
   
   itemById(componentById) {
-    return this._http.get(this.BASE_URL + `api/${componentById[0].contentType}/${componentById[0].id}`)
+    
+    return this._http.get(this.BASE_URL + `api/${componentById[0].contentType}/${componentById[0].data.id}`)
     .map(res => res.json()  )
   }
-    
-
+  
+  
   getData(get_data){  
+    
     return this._http.get(this.BASE_URL + `api/${get_data}`)
     .map(res => res.json())
   }
@@ -52,7 +57,7 @@ export class PortfolioService {
       return this.getIncrementationNumber()
       .subscribe(
         data => {
-          addData.id = data.id
+          addData[0].data.id = data.id
           this.competenceSubject.next(addData[0].data);        
         }
       )
@@ -62,7 +67,7 @@ export class PortfolioService {
   
   editData(getData){    
     return this._http.post(this.BASE_URL + `api/edit/${getData[0].contentType}/${getData[0].data.id}`, getData[0].data)
-       .map(res => this.editSubject.next(res.json()))
+    .map(res => this.editSubject.next(res.json()))
   }
   
   
@@ -73,9 +78,12 @@ export class PortfolioService {
     .map(res => {
       console.log(res.json());
       
-      this.deleteSubject.next(res.json())      
-      
+      this.deleteSubject.next(res.json()) 
     })
   }
   
+  messageSucces(message){
+    this.messageSuccess= "";
+    
+  }
 }
