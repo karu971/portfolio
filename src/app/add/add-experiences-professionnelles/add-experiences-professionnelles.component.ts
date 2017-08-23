@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { MessagesComponent } from "../../messages/messages.component";
-import "rxjs/operator/map"
 
 
 import { PortfolioService } from "../../services/portfolio.service";
@@ -20,7 +19,8 @@ export class AddExperiencesProfessionnellesComponent implements OnInit {
   pre: any;
   getMessage = { type: "", message: "" };
   competences: any = []
-  competencesArray: any = []
+  competencesArray: any = [];
+  verifValidationData: any = [];
 
 
   constructor(
@@ -50,8 +50,6 @@ export class AddExperiencesProfessionnellesComponent implements OnInit {
       })
 
     this._portfolioService.competenceSubject.subscribe(data => {
-      console.log(data);
-
       this.experiences = [...this.experiences, data]
       this.pre = data
     });
@@ -81,14 +79,12 @@ export class AddExperiencesProfessionnellesComponent implements OnInit {
     });
 
     console.log(experienceData.competence);
-    
-    for (let item of this.competences) {
-    if(experienceData.competence.findIndex(x => x.id == item.id ) === -1){
-      experienceData.competence = [...experienceData.competence,item]
-    }
-    
 
-      // console.log(tableau.findIndex(x => x.id == 2));
+    for (let item of this.competences) {
+      if (experienceData.competence.findIndex(x => x.id == item.id) === -1) {
+        experienceData.competence = [...experienceData.competence, item]
+      }
+
 
     }
 
@@ -122,8 +118,7 @@ export class AddExperiencesProfessionnellesComponent implements OnInit {
 
   deleteExperienceData(deleteData) {
     this.form.reset();
-    this._portfolioService.deleteData([{ data: deleteData, contentType: "experience" }])
-      .subscribe();
+    this.verifValidationData = [{ data: deleteData, contentType: "experience" }]
   }
 
   onChange($event) {

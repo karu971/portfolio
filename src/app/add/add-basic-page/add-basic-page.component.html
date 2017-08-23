@@ -45,21 +45,10 @@
             
             <br>
             <div>
-                <label for="lieu">Lieu</label>
-                <input type="text" formControlName="lieu" name="lieu" class="form-control" required>
+                <label for="place">Lieu</label>
+                <input type="text" formControlName="place" name="place" class="form-control" required>
             </div>
-            
-            <br>
-            <div *ngFor="let competence of competences">
-                <input type = "checkbox"
-                formControlName = "competence"
-                name = "competence"
-                [checked]="competence.checked"
-                [value]=""
-                (change)="onChange(competence)">
-                <label  for="competence">{{competence.title}}</label>
-            </div>
-
+         
             
             
             <br>
@@ -80,3 +69,4 @@
         </form>
     </div>
 </div>
+<app-pop-up [verifValidationData]="verifValidationData"></app-pop-up> 

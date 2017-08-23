@@ -19,6 +19,7 @@ export class AddLanguesComponent implements OnInit {
   ajouterLangue: boolean = true;
   pre: any;
   getMessage = { type: "", message: "" };
+  verifValidationData: any = [];
 
 
 
@@ -57,7 +58,7 @@ export class AddLanguesComponent implements OnInit {
 
   editLangueData(langueData) {
     console.log(langueData);
-    
+
     this.titleContenu = "Modifier la langue: ";
     this.ajouterLangue = false;
     this.form = this._formBuilder.group({
@@ -93,8 +94,7 @@ export class AddLanguesComponent implements OnInit {
 
   deleteLangueData(deleteData) {
     this.form.reset();
-    this._portfolioService.deleteData([{ data: deleteData, contentType: "langue" }])
-      .subscribe();
+    this.verifValidationData = [{ data: deleteData, contentType: "langue" }]
   }
 
 }

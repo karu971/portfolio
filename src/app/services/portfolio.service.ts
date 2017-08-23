@@ -26,17 +26,6 @@ export class PortfolioService {
   }
   
   
-  // editComponent(editComponentData) {
-    
-  //   return this._http.post(this.BASE_URL + 'api/edit/competence', editComponentData)
-  //   .map(res => {
-      
-  //     this.competenceSubject.next(editComponentData);
-      
-  //   })
-  // }
-  
-  
   itemById(componentById) {
     
     return this._http.get(this.BASE_URL + `api/${componentById[0].contentType}/${componentById[0].data.id}`)
@@ -52,6 +41,8 @@ export class PortfolioService {
   
   
   addData(addData) {
+    console.log(this.BASE_URL + `api/add/${addData[0].contentType}`);
+    
     return this._http.post(this.BASE_URL + `api/add/${addData[0].contentType}`, addData[0].data)
     .map(res => {
       return this.getIncrementationNumber()

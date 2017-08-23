@@ -18,7 +18,7 @@ export class AddFormationComponent implements OnInit {
   ajouteFormation: boolean = true;
   pre: any;
   getMessage = { type: "", message: "" };
-
+  verifValidationData: any = []
 
 
   constructor(
@@ -33,9 +33,9 @@ export class AddFormationComponent implements OnInit {
 
     this.form = this._formBuilder.group({
       id: -1,
-      title: "TITLE TEST",
-      body: "BODY TEST",
-      annee: "2015",
+      title: "",
+      body: "",
+      annee: "",
       createdDate: new Date(),
       modifiedDate: new Date(),
     })
@@ -92,8 +92,7 @@ export class AddFormationComponent implements OnInit {
 
   deleteFormationData(deleteData) {
     this.form.reset();
-    this._portfolioService.deleteData([{ data: deleteData, contentType: "formation" }])
-      .subscribe();
+    this.verifValidationData = [{ data: deleteData, contentType: "formation" }]
   }
 
 }

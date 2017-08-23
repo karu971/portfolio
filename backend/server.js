@@ -48,6 +48,9 @@ let verifyContentType = (contentType) => {
     // test("test: ", contentType)
 
     switch (contentType) {
+        case "basicPage":
+            return "./data/basic-page.json";
+
         case "competenceType":
             return "./data/competence-type.json";
 
@@ -82,7 +85,6 @@ app.use((req, res, next) => {
 const api = express.Router();
 
 api.get('/incrementation', (req, res) => {
-    // var incremFile = './data/auto-incrementation.json';
     const dataIncrementation = JSON.parse(fs.readFileSync(autoIncrementationsFile));
     test(dataIncrementation)
     res.send(dataIncrementation);
@@ -91,6 +93,7 @@ api.get('/incrementation', (req, res) => {
 
 api.post('/add/:contentType', (req, res) => {
 
+    test(req.body)
     const contentType = req.params.contentType;
     const getContentTypeData = verifyContentType(contentType)
 
@@ -143,27 +146,6 @@ api.post('/edit/:contentType/:id', (req, res) => { // TODO
 
 
 
-
-
-// api.get('/competenceType', (req, res) => {
-//     res.send(dataCompetenceTypes);
-// });
-
-// api.post('/add/competenceType', (req, res) => {
-//     const dataCompetenceType = getData(dataCompetenceTypesFile);
-//     const autoIncrem = getIncrementation();
-//     const competenceType = req.body;
-//     competenceType.id = autoIncrem;
-
-//     addedCompetenceTypes = [competenceType, ...addedCompetenceTypes];
-//     fs.writeFile(dataCompetenceTypesFile, JSON.stringify(getAllCompetences(dataCompetenceTypes, addedCompetenceTypes)), (err) => {
-//         if (err) throw err;
-//         console.log('The file has been saved!');
-//     });
-
-//     res.json(competenceType);
-
-// });
 
 
 api.get('/:contentType', (req, res) => {
