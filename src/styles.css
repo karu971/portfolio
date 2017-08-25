@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 body{
     margin-top: 73px;
+    font-size:16px;
 }
 
 .glyphicon{
@@ -14,3 +15,27 @@ body{
     color:red
 }
 
+h1{
+    text-transform: uppercase;
+    font-weight:bold;
+    margin:50px auto 80px
+}
+
+h4{
+    font-size:20px;
+}
+
+.img-competence .panel-body{
+    display: flex; /* Magic begins */
+    flex-direction: column;
+    justify-content: center; /* Center in main axis */
+    align-items: center; /* Center in cross axis */
+    margin: 20px auto;
+    width: 300px;
+    height: 150px;
+   
+}
+.img-competence .panel-body img{
+    max-width: 100%;
+    max-height: 100%;
+}

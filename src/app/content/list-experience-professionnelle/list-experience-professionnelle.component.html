@@ -1,0 +1,23 @@
+<div class="container">
+  <h1 class="text-center">Expériences Professionnelles</h1>
+  <div *ngFor="let experience of experiences">
+    <div class="panel panel-group panel-primary">
+      <div class="panel-heading">
+        <h3 class="text-left">{{experience.title}}</h3>
+        <p class="text-right">{{experience.date}}</p>
+      </div>
+      <h4 class="text-center"><strong>{{experience.company}}</strong> - <i>{{experience.lieu}}</i></h4>
+      <div class="text-center">
+        <span style="font-size:14px"><i>(
+        <div class="competence-list text-center" *ngFor="let competence of experience.competence | onlyChecked; let last = last"  [class.last]="last">
+          <span><i>{{competence.title}}</i></span>
+        <span *ngIf="!last">&nbsp;- &nbsp;</span>
+      </div>
+      </i>)</span>
+    </div>
+    <div class="panel-body" [innerHTML]="experience.body"></div>
+  </div>
+  <br>
+  <br>
+</div>
+</div>

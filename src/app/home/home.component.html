@@ -1,25 +1,78 @@
 <section id="section-1" class="section1 section jumbotron text-center">
   <div class="col-sm-12 block-top">
     <!-- <img [src]="image" class="img-fluid image-top" alt="Responsive image"> -->
-  
+
   </div>
 </section>
 
 <section id="section-2" class="section2 section container-fluid bg-2 text-center">
+  <div class="container">
     <div class="profile">
-      <br>
-      <br>
-      <br>
-        <ul>
-          <li>4​ ​1/2​ ​ans​ d’expérience dans la création de site internet</li>
-          <li>Proactif et responsable avec un excellent sens du relationnel et du service client</li>
-          <li>Esprit analytique, rigoureux avec soucis du détail</li>
-          <li>Autonome et doté d'une forte capacité d’adaptation au sein d’une équipe</li>
-  
-        </ul>
-      </div>
+      <ul>
+        <li>4​ ​1/2​ ​ans​ d’expérience dans la création de site internet</li>
+        <li>Proactif et responsable avec un excellent sens du relationnel et du service client</li>
+        <li>Esprit analytique, rigoureux avec soucis du détail</li>
+        <li>Autonome et doté d'une forte capacité d’adaptation au sein d’une équipe</li>
+
+      </ul>
+    </div>
+    <div class="langues">
+      <ul class="text-center list-inline">
+        <li *ngFor="let langue of langues" class="col-xs-12 col-sm-4">
+          <div>
+            <img style="max-height:60px" [src]="getImage(langue)" alt="{{langue.title}}">
+          </div>
+          <p>{{langue.body}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <section id="section-3" class="section3 section container-fluid bg-2 text-center">
+  <div class="container">
+    <h1>Expériences professionnelles</h1>
+    <div class="col-sm-6 col-md-4" *ngFor="let experience of experiences">
+      <div class="panel panel-group panel-primary">
+        <div class="panel-heading" [innerHTML]="experience.company"></div>
+        <div class="panel-body">{{experience.title}}</div>
+        <p style="font-size:14px;    padding: 0 20px;" class="text-right">{{experience.date}}</p>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <a role="button" class="btn btn-primary btn-lg details" routerLink="/list-experiences-professionnelles">Plus en détails...</a>
+    </div>
+  </div>
+</section>
 
-</section>    
+<section id="section-4" class="section4 section container-fluid bg-2 text-center">
+  <div class="container">
+    <app-list-competence-informatique [nbElementAfficher]="6" [typeCompetence]="7" [titreCompetence]="'Compétences informatiques'"
+      [colorCompetenceH1]="'white'"></app-list-competence-informatique>
+  </div>
+
+  <div class="col-sm-12">
+    <a role="button" class="btn btn-primary btn-lg details" routerLink="/list-competences-informatique">Voir plus</a>
+  </div>
+</section>
+
+<section id="section-5" class="section5 section container-fluid bg-2 text-center">
+  <div class="container">
+    <app-list-competence-informatique [nbElementAfficher]="6" [typeCompetence]="8" [titreCompetence]="'Langages informatiques'"
+      [colorCompetenceH1]=""></app-list-competence-informatique>
+  </div>
+
+  <div class="col-sm-12">
+    <a role="button" class="btn btn-primary btn-lg details" routerLink="/list-langage-informatique">Voir plus</a>
+  </div>
+</section>
+
+<section id="section-6" class="section6 section container-fluid bg-2 text-center">
+  <div class="container">
+    <app-list-etudes-formations [gridCol]="'col-sm-6'" [fontSize]="16"></app-list-etudes-formations>
+  </div>
+
+  <div class="col-sm-12">
+    <a role="button" class="btn btn-primary btn-lg details" routerLink="/list-experiences-professionnelles">Voir plus</a>
+  </div>
+</section>

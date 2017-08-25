@@ -23,8 +23,6 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
   ajouterCompetence: boolean = true;
   getMessage = { type: "", message: "" };
 
-
-
   constructor(
     private formBuilder: FormBuilder,
     private _portfolioService: PortfolioService,
@@ -39,7 +37,7 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
       type: null,
       createdDate: new Date(),
       modifiedDate: new Date(),
-      path: ""
+      uploader: ""
     })
 
     this._portfolioService.getData("competence")
@@ -71,6 +69,7 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
   submitForm(formData) {
     this.form.reset();
 
+    formData.uploader = formData.uploader.split("file:///d%3A/Sites/portfolio/src/assets/images/")[1]
     if (this.ajouterCompetence) {
       formData.createdDate = new Date();
       formData.modifiedDate = new Date();
@@ -96,7 +95,7 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
       type: competenceData.type,
       createdDate: competenceData.createdDate,
       modifiedDate: competenceData.modifiedDate,
-      path: competenceData.path
+      uploader: competenceData.uploader
     });
   }
 

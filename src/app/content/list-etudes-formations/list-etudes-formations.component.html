@@ -1,0 +1,17 @@
+<div class="container">
+  <h1 class="text-center">Études et formations</h1>
+  <div *ngFor="let formation of formations" [class]="gridCol">
+    <div class="panel panel-group panel-primary">
+      <div class="panel-heading">
+        <h3 [style.font-size.px]="fontSize" class="text-left">{{formation.title}}</h3>
+        <p [style.font-size.px]="fontSize" class="text-right">{{formation.annee}}</p>
+      </div>
+      <div class="text-center" style="max-height:117px">
+        <h4 [style.font-size.px]="fontSize"style="padding: 50px">{{formation.body}}</h4>
+      </div>
+     
+  </div>
+  <br>
+  <br>
+</div>
+</div>

@@ -7,12 +7,14 @@
                 <tr>
                     <th scope="row">#</th>
                     <th>titre</th>
+                    <th>entreprise</th>
                 </tr>
             </thead>
             <tbody class="">
                 <tr *ngFor="let experience of experiences let i=index">
                     <th class="col-xs-1">{{i}}</th>
-                    <td class="col-xs-9">{{experience.title}} </td>
+                    <td class="col-xs-4">{{experience.title}} </td>
+                    <td class="col-xs-4">{{experience.company}} </td>
                     <td class="glyphicon glyphicon-pencil col-xs-1" role="button" (click)="editExperienceData(experience)"></td>
                     <td class="glyphicon glyphicon-remove col-xs-1" role="button" (click)="deleteExperienceData(experience)" data-toggle="modal" data-target="#modalTarget"></td>
                     

@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
-import { ListCompetenceInformatiqueComponent } from './list-competence-informatique/list-competence-informatique.component';
+import { ListCompetenceInformatiqueComponent } from './content/list-competence-informatique/list-competence-informatique.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { CKEditorModule } from 'ng2-ckeditor';
@@ -13,7 +13,6 @@ import { MdCheckboxModule } from '@angular/material';
 
 
 import { PortfolioService } from './services/portfolio.service';
-import { CompetencePipe } from './pipes/competence.pipe';
 import { CompetenceInformatiqueFormComponent } from './add/competence-informatique-form/competence-informatique-form.component';
 import { CompetenceTypeComponent } from './add/competence-type/competence-type.component';
 import { CompetenceInformatiqueComponent } from './content/competence-informatique/competence-informatique.component';
@@ -24,12 +23,21 @@ import { MessagesComponent } from './messages/messages.component';
 import { AddLanguesComponent } from './add/add-langues/add-langues.component';
 import { AddExperiencesProfessionnellesComponent } from './add/add-experiences-professionnelles/add-experiences-professionnelles.component';
 import { AddBasicPageComponent } from './add/add-basic-page/add-basic-page.component';
+import { ListExperienceProfessionnelleComponent } from './content/list-experience-professionnelle/list-experience-professionnelle.component';
+import { OnlyCheckedPipe } from './pipes/only-checked.pipe';
+import { CompetencesInformatiquePipe } from './pipes/competences-informatique.pipe';
+import { ListEtudesFormationsComponent } from './content/list-etudes-formations/list-etudes-formations.component';
 
 
 const appRoutes = [
 
   { path: 'home', component: HomeComponent },
+
   { path: 'list-competences-informatique', component: ListCompetenceInformatiqueComponent },
+  { path: 'list-langage-informatique', component: ListCompetenceInformatiqueComponent },
+  { path: 'list-experiences-professionnelles', component: ListExperienceProfessionnelleComponent },
+  { path: 'list-etudes-formations', component: ListEtudesFormationsComponent },
+
   { path: 'popup', component: PopUpComponent },
 
   { path: 'competence-informatique/:id', component: CompetenceInformatiqueComponent, data: { preload: true } },
@@ -54,7 +62,6 @@ const appRoutes = [
     ListCompetenceInformatiqueComponent,
     PageNotFoundComponent,
     HomeComponent,
-    CompetencePipe,
     CompetenceInformatiqueFormComponent,
     CompetenceTypeComponent,
     CompetenceInformatiqueComponent,
@@ -63,7 +70,11 @@ const appRoutes = [
     MessagesComponent,
     AddLanguesComponent,
     AddExperiencesProfessionnellesComponent,
-    AddBasicPageComponent
+    AddBasicPageComponent,
+    ListExperienceProfessionnelleComponent,
+    OnlyCheckedPipe,
+    CompetencesInformatiquePipe,
+    ListEtudesFormationsComponent
   ],
   imports: [
     BrowserModule,

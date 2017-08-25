@@ -77,4 +77,8 @@ export class PortfolioService {
     this.messageSuccess= "";
     
   }
+
+  getImage(data){
+    return `assets/images/${data.uploader}`
+  }
 }

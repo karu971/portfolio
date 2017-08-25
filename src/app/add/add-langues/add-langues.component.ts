@@ -37,6 +37,7 @@ export class AddLanguesComponent implements OnInit {
       id: -1,
       title: "",
       body: "",
+      uploader: "",
       createdDate: new Date(),
       modifiedDate: new Date(),
     })
@@ -65,6 +66,7 @@ export class AddLanguesComponent implements OnInit {
       id: langueData.id,
       title: langueData.title,
       body: langueData.body,
+      uploader: langueData.uploader,
       createdDate: langueData.createdDate,
       modifiedDate: langueData.modifiedDate,
     });
@@ -82,6 +84,10 @@ export class AddLanguesComponent implements OnInit {
 
 
   submitLangue(langueData) {
+    if(langueData.uploader.split("file:///d%3A/Sites/portfolio/src/assets/images/").length > 1){
+      langueData.uploader = langueData.uploader.split("file:///d%3A/Sites/portfolio/src/assets/images/")[1]
+    }
+    
     if (this.ajouterLangue) {
       this.form.reset();
       this._portfolioService.addData([{ data: langueData, contentType: "langue" }])

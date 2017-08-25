@@ -1,0 +1,13 @@
+<div class="container text-center">  
+    <h1 [style.color]="colorCompetenceH1">{{titreCompetence}}</h1>
+    <div class="img-competence">
+        <div *ngFor="let competence of (competences | competencesInformatique: typeCompetence: nbElementAfficher)" class="col-sm-6 col-md-4 ">
+            <div class="panel panel-primary text-center">
+                <p class="panel-heading">{{competence.title}}</p>
+                <div class="panel-body">
+                    <img [src]="getImage(competence)" alt="{{competence.title}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

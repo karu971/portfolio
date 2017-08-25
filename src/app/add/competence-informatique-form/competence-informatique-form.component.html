@@ -15,8 +15,8 @@
                     <td class="col-xs-9">{{competence.title}} </td>
                     <td class="glyphicon glyphicon-pencil col-xs-1" role="button" (click)="editFormationData(competence)"></td>
                     <td class="glyphicon glyphicon-remove col-xs-1" role="button" (click)="deleteCompetenceData(competence)" data-toggle="modal"
-                    data-target="#modalTarget"></td>
-                    
+                        data-target="#modalTarget"></td>
+
                 </tr>
             </tbody>
         </table>
@@ -27,18 +27,24 @@
             <br>
             <label for="title">Titre</label>
             <input type="text" name="title" formControlName="title" class="form-control" required>
-            
+
             <br>
             <label for="title">Type de compétence</label>
             <select name="type" formControlName="type" class="form-control" required>
                 <option *ngFor="let type of types" value="{{type.id}}">{{type.title}}</option>
             </select>
+
+            <br>
+            <div>
+                <label for="uploader">Image</label>
+                <input type="text" formControlName="uploader" name="uploader" class="form-control">
+            </div>
             
             <br>
             <br>
             <button type="submit" class="btn btn-success" [disabled]="!form.valid">Ajouter</button>
             <a class="btn btn-primary" (click)="resetFormationData()">Ajouter un nouvelle formation</a>
-            
+
         </form>
     </div>
 </div>
