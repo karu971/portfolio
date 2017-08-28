@@ -16,6 +16,7 @@ import { PortfolioService } from './services/portfolio.service';
 import { CompetenceInformatiqueFormComponent } from './add/competence-informatique-form/competence-informatique-form.component';
 import { CompetenceTypeComponent } from './add/competence-type/competence-type.component';
 import { CompetenceInformatiqueComponent } from './content/competence-informatique/competence-informatique.component';
+import { Feature } from "./feature";
 import { PopUpComponent } from './pop-up/pop-up.component';
 import { AddFormationComponent } from './add/add-formation/add-formation.component';
 import { MessagesComponent } from './messages/messages.component';
@@ -84,7 +85,7 @@ const appRoutes = [
     CKEditorModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [PortfolioService, PopUpComponent, MessagesComponent],
+  providers: [PortfolioService, Feature, PopUpComponent, MessagesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
