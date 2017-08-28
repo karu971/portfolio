@@ -18,12 +18,4 @@ export class MessagesComponent implements OnInit {
 
     
   }
-
-  // getMessageSuccess(message:string){
-  //   this.messageSuccess = message;
-  // }
-
-  // getMessageError(message:string){
-  //   this.messageEror = message;
-  // }
 }

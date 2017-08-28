@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const jsonfile = require('jsonfile');
 var fs = require('fs');
+const jwt = require('jsonwebtoken');
 
 let dataCompetencesFile = './data/competences.json';
 let dataCompetenceTypesFile = './data/competence-type.json';
@@ -17,6 +18,9 @@ let addedCompetences = [];
 let addedCompetenceTypes = [];
 // let addedCompetences = [];
 
+const users = [{ id: 1, login: "admin", password: "sddb1", role: "admin" }, { id: 2, login: "visiteur", password: "sddb2", role: "visiteur" }]
+// const fakeUser = { email: "brice.laine@gmail.com", password: "sddb1" };
+const secret = 'weginwegoiwengoEOINWOEIGiegnwoginwIGOWGNOWEgnweg23092gni2309HN92387NJMiweqfIpqnwf'
 
 const test = (element) => {
 
@@ -83,6 +87,28 @@ app.use((req, res, next) => {
 })
 
 const api = express.Router();
+const auth = express.Router();
+
+
+auth.post('/login', (req, res) => {
+    if (req.body) {
+        const login = req.body.login.toLowerCase();
+        const password = req.body.password.toLowerCase();
+        const index = users.findIndex(user => user.login === login);
+        const role = "";
+        const name = "";
+        if (index > -1 && users[index].password === password) {
+            delete req.body.password;
+            const token = jwt.sign({ iss: 'http://localhost:4201', role: users[index].role, login: req.body.login, name: users[index].name }, secret);
+            res.json({ success: true, token: token });
+        } else {
+            res.json({ success: false, message: "identifiant incorrects" });
+        }
+    } else {
+        res.json({ success: false, message: "données incorrects" });
+    }
+})
+
 
 api.get('/incrementation', (req, res) => {
     const dataIncrementation = JSON.parse(fs.readFileSync(autoIncrementationsFile));
@@ -200,6 +226,7 @@ api.post('/delete/:contentType', (req, res) => {
 
 
 app.use('/api', api);
+app.use('/auth', auth);
 
 const port = 4201;
 

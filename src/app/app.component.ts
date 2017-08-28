@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'app';
+  getName: string = "";
+
+  constructor(
+    private _authService: AuthService
+  ) { }
+
+  ngOnInit() {
+
+    this.getName = this._authService.decodeTokenName();
+    console.log(this.getName);
+    
+    
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PortfolioService } from "../services/portfolio.service";
 
 
@@ -12,7 +12,9 @@ export class HomeComponent implements OnInit {
   experiences: any = [];
   competences: any = [];
   langues: any = [];
-  image: string = "assets/images/image1.jpg"
+  image: string = "assets/images/image1.jpg";
+  getMessage = { type: "", message: "" };
+  
 
   constructor(
     private _portfolioService: PortfolioService

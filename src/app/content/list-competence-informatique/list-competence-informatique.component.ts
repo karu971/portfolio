@@ -30,8 +30,6 @@ export class ListCompetenceInformatiqueComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.titreCompetence);
-    
     if(this._activatedRoute.snapshot.url[0].path == "list-competences-informatique"){
       this.typeCompetence = "7"
       this.titreCompetence = "Compétence informatiques"
