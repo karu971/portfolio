@@ -3,8 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { PortfolioService } from "../../services/portfolio.service";
 
-import { Feature } from "../../feature";
-
 
 @Component({
   selector: 'app-competence-informatique',
