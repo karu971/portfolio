@@ -15,12 +15,22 @@ export class AppComponent {
     private _authService: AuthService
   ) { }
 
-  ngOnInit() {
+  OnInit() {
 
     this.getName = this._authService.decodeTokenName();
     console.log(this.getName);
 
 
   }
+  IsLoggedIn() {
+    return this._authService.userIsLoggedIn();
+  }
 
+  userLogOut() {
+    return this._authService.logOut();
+  }
+
+  decodeTokenRole() {
+    return this._authService.decodeTokenRole();
+  }
 }

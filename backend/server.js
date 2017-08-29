@@ -227,6 +227,11 @@ api.post('/delete/:contentType', (req, res) => {
 
 app.use('/api', api);
 app.use('/auth', auth);
+app.use(express.static(_dirname + "/dist"));
+
+app.all('*', (req,res) => {
+    res.status(200).sendFile(_dirname + 'dist/index.html')
+})
 
 const port = 8080;
 
