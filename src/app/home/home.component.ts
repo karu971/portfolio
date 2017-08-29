@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PortfolioService } from "../services/portfolio.service";
+import { PortfolioService } from '../services/portfolio.service';
 
 
 @Component({
@@ -12,9 +12,9 @@ export class HomeComponent implements OnInit {
   experiences: any = [];
   competences: any = [];
   langues: any = [];
-  image: string = "assets/images/image1.jpg";
-  getMessage = { type: "", message: "" };
-  
+  image = 'assets/images/image1.jpg';
+  getMessage = { type: '', message: '' };
+
 
   constructor(
     private _portfolioService: PortfolioService
@@ -22,16 +22,16 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._portfolioService.getData("experience")
-      .subscribe(data => this.experiences = data)
+    this._portfolioService.getData('experience')
+      .subscribe(data => this.experiences = data);
 
-    this._portfolioService.getData("competence")
-      .subscribe(data => this.competences = data)
+    this._portfolioService.getData('competence')
+      .subscribe(data => this.competences = data);
 
-    this._portfolioService.getData("langue")
-      .subscribe(data => this.langues = data)
+    this._portfolioService.getData('langue')
+      .subscribe(data => this.langues = data);
   }
   getImage(data) {
-    return this._portfolioService.getImage(data)
+    return this._portfolioService.getImage(data);
   }
 }

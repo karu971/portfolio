@@ -14,24 +14,24 @@ export class AuthenticationComponent implements OnInit {
 
   constructor(
     private _authService: AuthService,
-    private _router:Router
+    private _router: Router
   ) { }
 
   logData = null;
-  isAuthenticated = false
-  welcomeMessage = "";
-  getMessage = { type: "", message: "" };
+  isAuthenticated = false;
+  welcomeMessage = '';
+  getMessage = { type: '', message: '' };
 
 
   ngOnInit() {
-    if(this._authService.userIsLoggedIn()){
+    if (this._authService.userIsLoggedIn()){
       this.refreshFlags();
     }
   }
 
   refreshFlags(){
     this.isAuthenticated = true;
-    this.welcomeMessage = "Bienvenue";
+    this.welcomeMessage = 'Bienvenue';
   }
 
   login(formData) {
@@ -39,18 +39,18 @@ export class AuthenticationComponent implements OnInit {
       .subscribe(
       data => this.handleLoginSucces(data),
       err => this.handleLoginError(err)
-      )
+      );
   }
 
   handleLoginSucces(data) {
     console.log(data);
-    if(data.success){
+    if (data.success){
       this.logData = data;
       this.refreshFlags();
       localStorage.setItem('log-data', JSON.stringify(data));
-      location.href="/home"      
+      location.href = '/home';
     }
-    
+
   }
 
   handleLoginError(err) {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PortfolioService } from "../../services/portfolio.service";
+import { PortfolioService } from '../../services/portfolio.service';
 
 @Component({
   selector: 'app-list-etudes-formations',
@@ -9,9 +9,9 @@ import { PortfolioService } from "../../services/portfolio.service";
 
 export class ListEtudesFormationsComponent implements OnInit {
 
-  @Input() gridCol: string = "col-sm-12";
-  @Input() fontSize: string = "";
-  
+  @Input() gridCol = 'col-sm-12';
+  @Input() fontSize = '';
+
   formations: any= [];
 
   constructor(
@@ -19,10 +19,10 @@ export class ListEtudesFormationsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._porfolioService.getData("formation")
+    this._porfolioService.getData('formation')
     .subscribe(
       data => this.formations = data
-    )
+    );
   }
 
 }

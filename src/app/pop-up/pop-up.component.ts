@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PortfolioService } from "../services/portfolio.service";
+import { PortfolioService } from '../services/portfolio.service';
 
 
 @Component({
@@ -8,19 +8,19 @@ import { PortfolioService } from "../services/portfolio.service";
   styleUrls: ['./pop-up.component.css']
 })
 export class PopUpComponent implements OnInit {
-  
+
   @Input() verifValidationData: any;
-  
+
  constructor(
     private _portfolioService: PortfolioService) { }
-    
+
     ngOnInit() {
-      
+
     }
-    
+
     getDeleteElement(deleteData) {
       this._portfolioService.deleteData(deleteData)
       .subscribe();
     }
   }
-  
+

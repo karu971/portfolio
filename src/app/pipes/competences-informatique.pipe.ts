@@ -7,20 +7,20 @@ export class CompetencesInformatiquePipe implements PipeTransform {
 
   competenceInformatique: any = [];
 
-  transform(value: any, typeCompetence: string, nbElementAfficher: string = "all"): any {
-    
+  transform(value: any, typeCompetence: string, nbElementAfficher: string = 'all'): any {
+
     if (value) {
-      for (let item of value) {
+      for (const item of value) {
         if (item.type == typeCompetence) {
-          this.competenceInformatique = [...this.competenceInformatique, item]
+          this.competenceInformatique = [...this.competenceInformatique, item];
         }
       }
-      if(nbElementAfficher != "all"){
-        this.competenceInformatique = this.competenceInformatique.slice(0,nbElementAfficher)
+      if (nbElementAfficher != 'all'){
+        this.competenceInformatique = this.competenceInformatique.slice(0, nbElementAfficher);
       }
     }
 
-    return this.competenceInformatique
+    return this.competenceInformatique;
   }
 
 }

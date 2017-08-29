@@ -7,15 +7,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MessagesComponent implements OnInit {
 
-  messageEror: string = "";
-  messageSuccess: string = "";
+  messageEror = '';
+  messageSuccess = '';
 
-  @Input() getMessage: any
-  
+  @Input() getMessage: any;
+
   constructor() { }
 
   ngOnInit() {
 
-    
+
   }
 }

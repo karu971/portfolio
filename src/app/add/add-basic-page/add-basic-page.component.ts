@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { PortfolioService } from "../../services/portfolio.service";
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { PortfolioService } from '../../services/portfolio.service';
 
 @Component({
   selector: 'app-add-basic-page',
@@ -9,12 +9,12 @@ import { PortfolioService } from "../../services/portfolio.service";
 })
 export class AddBasicPageComponent implements OnInit {
 
-  getMessage = { type: "", message: "" };
-  form: FormGroup
-  isNew: boolean = true;
+  getMessage = { type: '', message: '' };
+  form: FormGroup;
+  isNew = true;
   basicPages: any = [];
-  titleContenu: string = "Ajouter une nouvelle page"
-  verifValidationData: any = []
+  titleContenu = 'Ajouter une nouvelle page';
+  verifValidationData: any = [];
 
 
   constructor(
@@ -26,33 +26,33 @@ export class AddBasicPageComponent implements OnInit {
 
     this.form = this._formBuilder.group({
       id: -1,
-      title: "",
-      date: "",
-      company: "",
-      place: "",
-      body: "",
+      title: '',
+      date: '',
+      company: '',
+      place: '',
+      body: '',
       createdDate: new Date(),
       modifiedDate: new Date()
     });
 
-    this._portfolioService.getData("basicPage")
+    this._portfolioService.getData('basicPage')
       .subscribe(data => this.basicPages = data);
 
-    this._portfolioService.competenceSubject.subscribe(data => this.basicPages = [...this.basicPages, data])
-    this._portfolioService.editSubject.subscribe(data => this.basicPages = data)
-    this._portfolioService.deleteSubject.subscribe(data => this.basicPages = data)
+    this._portfolioService.competenceSubject.subscribe(data => this.basicPages = [...this.basicPages, data]);
+    this._portfolioService.editSubject.subscribe(data => this.basicPages = data);
+    this._portfolioService.deleteSubject.subscribe(data => this.basicPages = data);
   }
 
   submitBasicPage(basicPageData) {
     this.form.reset();
     if (this.isNew) {
 
-      this._portfolioService.addData([{ data: basicPageData, contentType: "basicPage" }])
-      .subscribe(data => this.getMessage = { type: "success", message: "La nouvelle page a été ajouté avec succès" });      
+      this._portfolioService.addData([{ data: basicPageData, contentType: 'basicPage' }])
+      .subscribe(data => this.getMessage = { type: 'success', message: 'La nouvelle page a été ajouté avec succès' });
     } else {
-      this._portfolioService.editData([{ data: basicPageData, contentType: "basicPage" }])
-      .subscribe(data => this.getMessage = { type: "success", message: "La nouvelle page a été modifié avec succès" });
-      
+      this._portfolioService.editData([{ data: basicPageData, contentType: 'basicPage' }])
+      .subscribe(data => this.getMessage = { type: 'success', message: 'La nouvelle page a été modifié avec succès' });
+
     }
   }
 
@@ -63,7 +63,7 @@ export class AddBasicPageComponent implements OnInit {
 
   editBasicPageData(editData) {
     this.isNew = false;
-    this.titleContenu = "Modifier la page " + editData.title
+    this.titleContenu = 'Modifier la page ' + editData.title;
     this.form = this._formBuilder.group({
       id: editData.id,
       title: editData.title,
@@ -77,6 +77,6 @@ export class AddBasicPageComponent implements OnInit {
   }
 
   deleteBasicPageData(deleteData){
-    this.verifValidationData = [{ data: deleteData, contentType: "basicPage" }]
+    this.verifValidationData = [{ data: deleteData, contentType: 'basicPage' }];
   }
 }

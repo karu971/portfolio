@@ -9,7 +9,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
 
   title = 'app';
-  getName: string = "";
+  getName = '';
 
   constructor(
     private _authService: AuthService
@@ -19,8 +19,8 @@ export class AppComponent {
 
     this.getName = this._authService.decodeTokenName();
     console.log(this.getName);
-    
-    
+
+
   }
 
 }

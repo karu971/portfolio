@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from "@angular/http";
+import { HttpModule } from '@angular/http';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { MdCheckboxModule } from '@angular/material';
 
@@ -40,19 +40,19 @@ const appRoutes = [
 
   {
     path: 'list-competences-informatique',
-    component: ListCompetenceInformatiqueComponent    
+    component: ListCompetenceInformatiqueComponent
   },
   {
     path: 'list-langage-informatique',
-    component: ListCompetenceInformatiqueComponent    
+    component: ListCompetenceInformatiqueComponent
   },
   {
     path: 'list-experiences-professionnelles',
-    component: ListExperienceProfessionnelleComponent    
+    component: ListExperienceProfessionnelleComponent
   },
   {
     path: 'list-etudes-formations',
-    component: ListEtudesFormationsComponent    
+    component: ListEtudesFormationsComponent
   },
 
   { path: 'popup', component: PopUpComponent },
@@ -95,7 +95,7 @@ const appRoutes = [
     pathMatch: 'full'
   },
   { path: '**', component: PageNotFoundComponent }
-]
+];
 
 @NgModule({
   declarations: [

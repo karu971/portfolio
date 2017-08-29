@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { PortfolioService } from "../../services/portfolio.service";
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { PortfolioService } from '../../services/portfolio.service';
 
 
 @Component({
@@ -14,12 +14,12 @@ export class CompetenceInformatiqueComponent implements OnInit {
 
   componentDetails: any = [];
   competenceTypes: any = [];
-  errorMessage = "";
+  errorMessage = '';
   error = null;
   types = [];
   form: FormGroup;
-  messageSuccess = true
-  getId: any
+  messageSuccess = true;
+  getId: any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -32,25 +32,25 @@ export class CompetenceInformatiqueComponent implements OnInit {
 
     this.form = this._formBuilder.group({
       id: -1,
-      title: "",
+      title: '',
       type: null,
       createdDate: new Date(),
       modifiedDate: new Date(),
-      path: ""
-    })
+      path: ''
+    });
 
 
-    this.getId = this._activatedRoute.snapshot.params
+    this.getId = this._activatedRoute.snapshot.params;
 
-    this._portfolioService.getData("competenceType")
+    this._portfolioService.getData('competenceType')
       .subscribe(
-      data => this.competenceTypes = data)
+      data => this.competenceTypes = data);
 
 
-    this._portfolioService.itemById([{ data: this.getId, contentType: "competence" }])
+    this._portfolioService.itemById([{ data: this.getId, contentType: 'competence' }])
       .subscribe(
       data => {
-        this.componentDetails = data.data
+        this.componentDetails = data.data;
       });
   }
 
@@ -58,13 +58,13 @@ export class CompetenceInformatiqueComponent implements OnInit {
 
     editData.id = parseInt(this.getId.id);
     console.log(this.getId );
-    
-    this._portfolioService.editData([{ data: editData, contentType: "competence" }])
+
+    this._portfolioService.editData([{ data: editData, contentType: 'competence' }])
     .subscribe(
-      data =>console.log(data),
+      data => console.log(data),
       err => console.log(err),
       () => this._router.navigate(['/list-competences-informatique'])
-      
-    )
+
+    );
   }
 }

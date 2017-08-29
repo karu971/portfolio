@@ -18,7 +18,7 @@ let addedCompetences = [];
 let addedCompetenceTypes = [];
 // let addedCompetences = [];
 
-const users = [{ id: 1, login: "admin", password: "sddb1", role: "admin" }, { id: 2, login: "visiteur", password: "sddb2", role: "visiteur" }]
+const users = [{ id: 1, login: "admin", password: "sddb1", role: "admin" }, { id: 2, login: "visiteur", password: 'sddb2', role: "visiteur" }]
 // const fakeUser = { email: "brice.laine@gmail.com", password: "sddb1" };
 const secret = 'weginwegoiwengoEOINWOEIGiegnwoginwIGOWGNOWEgnweg23092gni2309HN92387NJMiweqfIpqnwf'
 
@@ -30,7 +30,7 @@ const test = (element) => {
 }
 
 
-const getAllCompetences = (tab1, tab2) => {
+const getAllCompetences = (tab1, tab2) => { 
     return [...tab1, ...tab2]
 }
 

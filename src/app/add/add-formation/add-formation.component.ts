@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from "@angular/forms";
-import { MessagesComponent } from "../../messages/messages.component";
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { MessagesComponent } from '../../messages/messages.component';
 
 
-import { PortfolioService } from "../../services/portfolio.service";
+import { PortfolioService } from '../../services/portfolio.service';
 
 @Component({
   selector: 'app-add-formation',
@@ -14,11 +14,11 @@ export class AddFormationComponent implements OnInit {
 
   form: FormGroup;
   formations: any = [];
-  titleContenu: string = "Ajouter une nouvelle formation"
-  ajouteFormation: boolean = true;
+  titleContenu = 'Ajouter une nouvelle formation';
+  ajouteFormation = true;
   pre: any;
-  getMessage = { type: "", message: "" };
-  verifValidationData: any = []
+  getMessage = { type: '', message: '' };
+  verifValidationData: any = [];
 
 
   constructor(
@@ -33,30 +33,30 @@ export class AddFormationComponent implements OnInit {
 
     this.form = this._formBuilder.group({
       id: -1,
-      title: "",
-      body: "",
-      annee: "",
+      title: '',
+      body: '',
+      annee: '',
       createdDate: new Date(),
       modifiedDate: new Date(),
-    })
-    this._portfolioService.getData("formation")
+    });
+    this._portfolioService.getData('formation')
       .subscribe(data => {
-        this.formations = data
-      })
+        this.formations = data;
+      });
 
     this._portfolioService.competenceSubject.subscribe(data => {
       console.log(data);
 
-      this.formations = [...this.formations, data]
-      this.pre = data
+      this.formations = [...this.formations, data];
+      this.pre = data;
     });
     this._portfolioService.editSubject.subscribe(data => this.formations = data);
-    this._portfolioService.deleteSubject.subscribe(data => this.formations = data)
+    this._portfolioService.deleteSubject.subscribe(data => this.formations = data);
 
   }
 
   editFormationData(formationData) {
-    this.titleContenu = "Modifier la formation: ";
+    this.titleContenu = 'Modifier la formation: ';
     this.ajouteFormation = false;
     this.form = this._formBuilder.group({
       id: formationData.id,
@@ -69,12 +69,12 @@ export class AddFormationComponent implements OnInit {
   }
 
   resetFormationData() {
-    this.titleContenu = "Ajouter une nouvelle formation";
+    this.titleContenu = 'Ajouter une nouvelle formation';
     this.form.reset();
-    this._portfolioService.getData("formation")
+    this._portfolioService.getData('formation')
       .subscribe(data => {
-        this.formations = data
-      })
+        this.formations = data;
+      });
     this.ajouteFormation = true;
   }
 
@@ -82,17 +82,17 @@ export class AddFormationComponent implements OnInit {
   submitFormation(formationData) {
     if (this.ajouteFormation) {
       this.form.reset();
-      this._portfolioService.addData([{ data: formationData, contentType: "formation" }])
-        .subscribe(data => this.getMessage = { type: "success", message: "La nouvelle formation a été ajouté avec succèss" });
+      this._portfolioService.addData([{ data: formationData, contentType: 'formation' }])
+        .subscribe(data => this.getMessage = { type: 'success', message: 'La nouvelle formation a été ajouté avec succèss' });
     } else {
-      this._portfolioService.editData([{ data: formationData, contentType: "formation" }])
-        .subscribe(data => this.getMessage = { type: "success", message: "La nouvelle formation a été modifié avec succèss" });
+      this._portfolioService.editData([{ data: formationData, contentType: 'formation' }])
+        .subscribe(data => this.getMessage = { type: 'success', message: 'La nouvelle formation a été modifié avec succèss' });
     }
   }
 
   deleteFormationData(deleteData) {
     this.form.reset();
-    this.verifValidationData = [{ data: deleteData, contentType: "formation" }]
+    this.verifValidationData = [{ data: deleteData, contentType: 'formation' }];
   }
 
 }

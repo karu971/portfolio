@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 
-import { PortfolioService } from "../../services/portfolio.service";
+import { PortfolioService } from '../../services/portfolio.service';
 
 @Component({
   selector: 'app-competence-informatique-form',
@@ -19,9 +19,9 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
   competenceSubject = new Subject();
   verifValidationData = [];
   incrementation: any;
-  titleContenu: string = "Ajouter une nouvelle compétence informatique";
-  ajouterCompetence: boolean = true;
-  getMessage = { type: "", message: "" };
+  titleContenu = 'Ajouter une nouvelle compétence informatique';
+  ajouterCompetence = true;
+  getMessage = { type: '', message: '' };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,22 +33,22 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       id: -1,
-      title: "",
+      title: '',
       type: null,
       createdDate: new Date(),
       modifiedDate: new Date(),
-      uploader: ""
-    })
+      uploader: ''
+    });
 
-    this._portfolioService.getData("competence")
+    this._portfolioService.getData('competence')
       .subscribe(
       data => this.competences = data
-      )
+      );
 
-    this._portfolioService.getData("competenceType")
+    this._portfolioService.getData('competenceType')
       .subscribe(
       data => this.types = data
-      )
+      );
 
     // console.log(this.types)
 
@@ -57,37 +57,37 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
     });
     this._portfolioService.deleteSubject.subscribe(data => {
       this.competences = data;
-      this.getMessage = { type: "success", message: "La nouvelle formation a été supprimée avec succèss" }
-    })
+      this.getMessage = { type: 'success', message: 'La nouvelle formation a été supprimée avec succèss' };
+    });
     this._portfolioService.editSubject.subscribe(data => {
       this.competences = data;
-      this.getMessage = { type: "success", message: "La nouvelle formation a été modifiée avec succèss" }
-    })
+      this.getMessage = { type: 'success', message: 'La nouvelle formation a été modifiée avec succèss' };
+    });
   }
 
 
   submitForm(formData) {
     this.form.reset();
 
-    formData.uploader = formData.uploader.split("file:///d%3A/Sites/portfolio/src/assets/images/")[1]
+    formData.uploader = formData.uploader.split('file:///d%3A/Sites/portfolio/src/assets/images/')[1];
     if (this.ajouterCompetence) {
       formData.createdDate = new Date();
       formData.modifiedDate = new Date();
 
-      this._portfolioService.addData([{ data: formData, contentType: "competence" }])
-        .subscribe()
+      this._portfolioService.addData([{ data: formData, contentType: 'competence' }])
+        .subscribe();
     } else {
-      this._portfolioService.editData([{ data: formData, contentType: "competence" }])
+      this._portfolioService.editData([{ data: formData, contentType: 'competence' }])
       .subscribe();
     }
   }
 
   deleteCompetenceData(competenceData) {
-    this.verifValidationData = [{ data: competenceData, contentType: "competence" }]
+    this.verifValidationData = [{ data: competenceData, contentType: 'competence' }];
   }
 
   editFormationData(competenceData) {
-    this.titleContenu = "Modifier la formation";
+    this.titleContenu = 'Modifier la formation';
     this.ajouterCompetence = false;
     this.form = this.formBuilder.group({
       id: competenceData.id,
@@ -101,7 +101,7 @@ export class CompetenceInformatiqueFormComponent implements OnInit {
 
 
   resetFormationData() {
-    this.titleContenu = "Ajouter une nouvelle compétence informatique";
+    this.titleContenu = 'Ajouter une nouvelle compétence informatique';
     this.form.reset();
     this.ajouterCompetence = true;
   }

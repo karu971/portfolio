@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from "@angular/forms";
-import { MessagesComponent } from "../../messages/messages.component";
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { MessagesComponent } from '../../messages/messages.component';
 
 
-import { PortfolioService } from "../../services/portfolio.service";
+import { PortfolioService } from '../../services/portfolio.service';
 
 
 @Component({
@@ -15,10 +15,10 @@ export class AddLanguesComponent implements OnInit {
 
   form: FormGroup;
   langues: any = [];
-  titleContenu: string = "Ajouter une nouvelle langue"
-  ajouterLangue: boolean = true;
+  titleContenu = 'Ajouter une nouvelle langue';
+  ajouterLangue = true;
   pre: any;
-  getMessage = { type: "", message: "" };
+  getMessage = { type: '', message: '' };
   verifValidationData: any = [];
 
 
@@ -35,32 +35,32 @@ export class AddLanguesComponent implements OnInit {
 
     this.form = this._formBuilder.group({
       id: -1,
-      title: "",
-      body: "",
-      uploader: "",
+      title: '',
+      body: '',
+      uploader: '',
       createdDate: new Date(),
       modifiedDate: new Date(),
-    })
-    this._portfolioService.getData("langue")
+    });
+    this._portfolioService.getData('langue')
       .subscribe(data => {
-        this.langues = data
-      })
+        this.langues = data;
+      });
 
     this._portfolioService.competenceSubject.subscribe(data => {
       console.log(data);
 
-      this.langues = [...this.langues, data]
-      this.pre = data
+      this.langues = [...this.langues, data];
+      this.pre = data;
     });
     this._portfolioService.editSubject.subscribe(data => this.langues = data);
-    this._portfolioService.deleteSubject.subscribe(data => this.langues = data)
+    this._portfolioService.deleteSubject.subscribe(data => this.langues = data);
 
   }
 
   editLangueData(langueData) {
     console.log(langueData);
 
-    this.titleContenu = "Modifier la langue: ";
+    this.titleContenu = 'Modifier la langue: ';
     this.ajouterLangue = false;
     this.form = this._formBuilder.group({
       id: langueData.id,
@@ -73,34 +73,34 @@ export class AddLanguesComponent implements OnInit {
   }
 
   resetLangueData() {
-    this.titleContenu = "Ajouter une nouvelle langue";
+    this.titleContenu = 'Ajouter une nouvelle langue';
     this.form.reset();
-    this._portfolioService.getData("langue")
+    this._portfolioService.getData('langue')
       .subscribe(data => {
-        this.langues = data
-      })
+        this.langues = data;
+      });
     this.ajouterLangue = true;
   }
 
 
   submitLangue(langueData) {
-    if(langueData.uploader.split("file:///d%3A/Sites/portfolio/src/assets/images/").length > 1){
-      langueData.uploader = langueData.uploader.split("file:///d%3A/Sites/portfolio/src/assets/images/")[1]
+    if (langueData.uploader.split('file:///d%3A/Sites/portfolio/src/assets/images/').length > 1){
+      langueData.uploader = langueData.uploader.split('file:///d%3A/Sites/portfolio/src/assets/images/')[1];
     }
-    
+
     if (this.ajouterLangue) {
       this.form.reset();
-      this._portfolioService.addData([{ data: langueData, contentType: "langue" }])
-        .subscribe(data => this.getMessage = { type: "success", message: "La nouvelle langue a été ajouté avec succèss" });
+      this._portfolioService.addData([{ data: langueData, contentType: 'langue' }])
+        .subscribe(data => this.getMessage = { type: 'success', message: 'La nouvelle langue a été ajouté avec succèss' });
     } else {
-      this._portfolioService.editData([{ data: langueData, contentType: "langue" }])
-        .subscribe(data => this.getMessage = { type: "success", message: "La nouvelle langue a été modifié avec succèss" });
+      this._portfolioService.editData([{ data: langueData, contentType: 'langue' }])
+        .subscribe(data => this.getMessage = { type: 'success', message: 'La nouvelle langue a été modifié avec succèss' });
     }
   }
 
   deleteLangueData(deleteData) {
     this.form.reset();
-    this.verifValidationData = [{ data: deleteData, contentType: "langue" }]
+    this.verifValidationData = [{ data: deleteData, contentType: 'langue' }];
   }
 
 }

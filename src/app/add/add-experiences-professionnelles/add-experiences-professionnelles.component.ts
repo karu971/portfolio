@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from "@angular/forms";
-import { MessagesComponent } from "../../messages/messages.component";
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { MessagesComponent } from '../../messages/messages.component';
 
 
-import { PortfolioService } from "../../services/portfolio.service";
+import { PortfolioService } from '../../services/portfolio.service';
 
 @Component({
   selector: 'app-add-experiences-professionnelles',
@@ -14,11 +14,11 @@ export class AddExperiencesProfessionnellesComponent implements OnInit {
 
   form: FormGroup;
   experiences: any = [];
-  titleContenu: string = "Ajouter une nouvelle experience"
-  ajouteExperience: boolean = true;
+  titleContenu = 'Ajouter une nouvelle experience';
+  ajouteExperience = true;
   pre: any;
-  getMessage = { type: "", message: "" };
-  competences: any = []
+  getMessage = { type: '', message: '' };
+  competences: any = [];
   competencesArray: any = [];
   verifValidationData: any = [];
 
@@ -35,36 +35,36 @@ export class AddExperiencesProfessionnellesComponent implements OnInit {
 
     this.form = this._formBuilder.group({
       id: -1,
-      title: "",
-      body: "",
-      date: "",
-      company: "",
-      lieu: "",
+      title: '',
+      body: '',
+      date: '',
+      company: '',
+      lieu: '',
       competence: [],
       createdDate: new Date(),
       modifiedDate: new Date(),
-    })
-    this._portfolioService.getData("experience")
+    });
+    this._portfolioService.getData('experience')
       .subscribe(data => {
-        this.experiences = data
-      })
+        this.experiences = data;
+      });
 
     this._portfolioService.competenceSubject.subscribe(data => {
-      this.experiences = [...this.experiences, data]
-      this.pre = data
+      this.experiences = [...this.experiences, data];
+      this.pre = data;
     });
 
-    this._portfolioService.getData("competence")
-      .subscribe(data => this.competences = data)
+    this._portfolioService.getData('competence')
+      .subscribe(data => this.competences = data);
 
     this._portfolioService.editSubject.subscribe(data => this.experiences = data);
-    this._portfolioService.deleteSubject.subscribe(data => this.experiences = data)
+    this._portfolioService.deleteSubject.subscribe(data => this.experiences = data);
 
   }
 
   editExperienceData(experienceData) {
 
-    this.titleContenu = "Modifier la experience: ";
+    this.titleContenu = 'Modifier la experience: ';
     this.ajouteExperience = false;
     this.form = this._formBuilder.group({
       id: experienceData.id,
@@ -80,24 +80,24 @@ export class AddExperiencesProfessionnellesComponent implements OnInit {
 
     console.log(experienceData.competence);
 
-    for (let item of this.competences) {
+    for (const item of this.competences) {
       if (experienceData.competence.findIndex(x => x.id == item.id) === -1) {
-        experienceData.competence = [...experienceData.competence, item]
+        experienceData.competence = [...experienceData.competence, item];
       }
 
 
     }
 
-    this.competences = experienceData.competence
+    this.competences = experienceData.competence;
   }
 
   resetExperienceData() {
-    this.titleContenu = "Ajouter une nouvelle experience";
+    this.titleContenu = 'Ajouter une nouvelle experience';
     this.form.reset();
-    this._portfolioService.getData("experience")
+    this._portfolioService.getData('experience')
       .subscribe(data => {
-        this.experiences = data
-      })
+        this.experiences = data;
+      });
     this.ajouteExperience = true;
   }
 
@@ -105,20 +105,20 @@ export class AddExperiencesProfessionnellesComponent implements OnInit {
   submitExperience(experienceData) {
     this.form.reset();
     if (this.ajouteExperience) {
-      experienceData.competence = this.competences
-      this._portfolioService.addData([{ data: experienceData, contentType: "experience" }])
-        .subscribe(data => this.getMessage = { type: "success", message: "La nouvelle experience a été ajouté avec succèss" });
+      experienceData.competence = this.competences;
+      this._portfolioService.addData([{ data: experienceData, contentType: 'experience' }])
+        .subscribe(data => this.getMessage = { type: 'success', message: 'La nouvelle experience a été ajouté avec succèss' });
     } else {
       console.log(this.form.value);
-      experienceData.competence = this.competences
-      this._portfolioService.editData([{ data: experienceData, contentType: "experience" }])
-        .subscribe(data => this.getMessage = { type: "success", message: "La nouvelle experience a été modifié avec succèss" });
+      experienceData.competence = this.competences;
+      this._portfolioService.editData([{ data: experienceData, contentType: 'experience' }])
+        .subscribe(data => this.getMessage = { type: 'success', message: 'La nouvelle experience a été modifié avec succèss' });
     }
   }
 
   deleteExperienceData(deleteData) {
     this.form.reset();
-    this.verifValidationData = [{ data: deleteData, contentType: "experience" }]
+    this.verifValidationData = [{ data: deleteData, contentType: 'experience' }];
   }
 
   onChange($event) {
