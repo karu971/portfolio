@@ -228,8 +228,10 @@ api.post('/delete/:contentType', (req, res) => {
 app.use('/api', api);
 app.use('/auth', auth);
 
-const port = 4201;
+const port = 8080;
 
-app.listen(port, () => {
-    console.log(`listening on port ${port}`);
-});
+// app.listen(port, () => {
+//     console.log(`listening on port ${port}`);
+// });
+
+app.listen(process.env.PORT || 8080)
