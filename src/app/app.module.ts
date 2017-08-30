@@ -1,9 +1,12 @@
+// import {CKEditorComponent} from 'ng2-ckeditor/lib';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { CKEditorComponent } from '../../node_modules/ng2-ckeditor/src/ckeditor.component';
+
 import { MdCheckboxModule } from '@angular/material';
 
 
@@ -116,7 +119,8 @@ const appRoutes = [
     OnlyCheckedPipe,
     CompetencesInformatiquePipe,
     ListEtudesFormationsComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    CKEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -128,6 +132,9 @@ const appRoutes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [PortfolioService, PopUpComponent, MessagesComponent, AuthService, AuthGuardService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    CKEditorComponent
+  ]
 })
 export class AppModule { }
